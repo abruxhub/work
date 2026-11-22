@@ -1,32 +1,40 @@
 @import "tailwindcss";
 
-/* Collage: dusty pink pages, paper pages, black tags, cream type. */
+/* Vintage editorial: oxblood, brown, cream, dark green, a touch of gilt. */
 @theme {
   --font-sans: "Archivo Variable", ui-sans-serif, system-ui, sans-serif;
   --font-serif: "Instrument Serif", ui-serif, Georgia, serif;
-  --font-marker: "Caveat Brush", "Comic Sans MS", cursive;
+  --font-script: "Pinyon Script", "Snell Roundhand", cursive;
+  --font-display: "Anton", "Archivo Variable", Impact, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
-  --color-bg: #9c4866;
-  --color-raised: #8a3d58;
-  --color-line: rgb(255 246 240 / 0.45);
-  --color-fg: #fff6f0;
-  --color-fg-2: #fbe3ea;
-  --color-fg-3: #f3cdd9;
-  --color-ink: #161113;
-  --color-paper: #f7f2ed;
-  --color-blush: #f6b9cc;
-  --color-accent: #fff6f0;
+
+  --color-oxblood: #4b1219;
+  --color-wine: #6b1d27;
+  --color-brown: #5b3b28;
+  --color-espresso: #24150f;
+  --color-cream: #efe6d4;
+  --color-parchment: #e3d6bd;
+  --color-green: #2e3a26;
+  --color-olive: #59613f;
+  --color-gold: #b08d57;
+
+  /* Text roles for light (cream) surfaces; .on-dark flips them. */
+  --color-bg: #efe6d4;
+  --color-fg: #24150f;
+  --color-fg-2: #4f3b2d;
+  --color-fg-3: #76604d;
+  --color-line: rgb(36 21 15 / 0.28);
+  --color-raised: #f6efe2;
+  --color-ink: #24150f;
+  --color-accent: #4b1219;
 }
 
-/* Paper sections flip the palette, so shared components keep working. */
-.paper {
-  --color-fg: #161113;
-  --color-fg-2: #3d3236;
-  --color-fg-3: #6b5c62;
-  --color-line: rgb(22 17 19 / 0.25);
-  --color-accent: #9c4866;
-  --color-raised: #ffffff;
-  background: var(--color-paper);
+.on-dark {
+  --color-fg: #efe6d4;
+  --color-fg-2: #dccdb3;
+  --color-fg-3: #bba98c;
+  --color-line: rgb(239 230 212 / 0.35);
+  --color-accent: #efe6d4;
   color: var(--color-fg);
 }
 
@@ -41,11 +49,28 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Halftone dots on the pink pages, like printed card stock. */
-.halftone {
-  background-color: var(--color-bg);
-  background-image: radial-gradient(rgb(255 255 255 / 0.09) 1px, transparent 1.2px);
-  background-size: 6px 6px;
+/* Faint damask lattice for the dark pages. */
+.damask {
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56'%3E%3Cg fill='none' stroke='%23efe6d4' stroke-opacity='.07' stroke-width='1'%3E%3Cpath d='M28 4c4 8 12 12 24 24-12 12-20 16-24 24-4-8-12-12-24-24C16 16 24 12 28 4Z'/%3E%3Ccircle cx='28' cy='28' r='3'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Paper grain for cream pages. */
+.grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .2 0 0 0 0 .12 0 0 0 0 .08 0 0 0 .08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Torn top and bottom edges for paper notes. */
+.torn {
+  clip-path: polygon(0 3%, 6% 0, 13% 2.5%, 21% .5%, 30% 3%, 38% 0, 47% 2%, 55% .5%, 63% 3%, 72% 0, 80% 2.5%, 88% .5%, 95% 2.5%, 100% 0, 100% 97%, 94% 100%, 86% 97.5%, 78% 99.5%, 69% 97%, 61% 100%, 52% 98%, 44% 99.5%, 36% 97%, 27% 100%, 19% 97.5%, 11% 99.5%, 4% 97.5%, 0 100%);
+}
+
+/* Gilded frame. */
+.gilt {
+  border: 7px solid transparent;
+  background: linear-gradient(var(--color-espresso), var(--color-espresso)) padding-box,
+    linear-gradient(135deg, #e6cf97, #9a7438 30%, #f1dca6 50%, #8a6530 72%, #d9bd80) border-box;
+  box-shadow: 0 0 0 2px #5e4422, 0 18px 36px -16px rgb(0 0 0 / 0.6);
 }
 
 :focus-visible {
