@@ -7,6 +7,7 @@ import "@fontsource/ibm-plex-mono/latin-400.css";
 import "@fontsource/ibm-plex-mono/latin-500.css";
 import "@fontsource/anton/latin-400.css";
 import "@fontsource/pinyon-script/latin-400.css";
+import "@fontsource/caveat-brush/latin-400.css";
 import "./globals.css";
 import { site } from "@/content/site";
 

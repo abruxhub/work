@@ -1,7 +1,7 @@
 import { ClipboardList, Gamepad2, Languages, Users } from "lucide-react";
-import { about, brands, credits, education, photos, services, site, skillGroups, stats, workCategories } from "@/content/site";
+import { about, brands, credits, cutouts, education, photos, services, site, skillGroups, stats, workCategories } from "@/content/site";
 import { ContactForm } from "@/components/contact-form";
-import { Butterfly, Flower, GiltFrame, Label, Phone, PixelReveal, ScriptHead, Seal, TornNote } from "@/components/vintage";
+import { Arrow, Cutout, FilmStrip, Label, Loop, Phone, PixelReveal, Print, ScriptHead, Scribble, Seal, Sparkle, Star, Tape, TornNote, Zigzag } from "@/components/vintage";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -17,6 +17,7 @@ const jsonLd = {
 const statIcons = { users: Users, languages: Languages, clipboard: ClipboardList, gamepad: Gamepad2 };
 const socialShort: Record<string, string> = { X: "X", Instagram: "IG", LinkedIn: "in" };
 const roman = ["I", "II", "III", "IV", "V", "VI"];
+const tilt = ["rotate-2", "-rotate-2", "rotate-1", "-rotate-1"];
 
 function WorkEntry({ c, flip }: { c: (typeof credits)[number]; flip: boolean }) {
   const pics = (c.photos ?? []).slice(0, 4);
@@ -35,12 +36,13 @@ function WorkEntry({ c, flip }: { c: (typeof credits)[number]; flip: boolean }) 
         )}
       </div>
       {pics.length > 0 && (
-        <ul className={`grid gap-5 ${pics.length === 1 ? "grid-cols-1 justify-items-center" : "grid-cols-2"}`}>
+        <ul className={`relative grid gap-6 ${pics.length === 1 ? "grid-cols-1 justify-items-center" : "grid-cols-2"}`}>
           {pics.map((p, i) => (
-            <li key={p.src} className={`${pics.length === 3 && i === 0 ? "col-span-2" : ""} ${pics.length === 1 ? "w-full max-w-md" : ""}`}>
-              <GiltFrame photo={p} className="aspect-[4/3] w-full" />
+            <li key={p.src} className={`${pics.length === 3 && i === 0 ? "col-span-2" : ""} ${pics.length === 1 ? "w-full max-w-md" : ""} ${tilt[i % tilt.length]}`}>
+              <Print photo={p} imgClass="aspect-[4/3]" />
             </li>
           ))}
+          <Star className="absolute -top-6 -right-4 size-12 rotate-12" />
         </ul>
       )}
     </li>
@@ -48,7 +50,7 @@ function WorkEntry({ c, flip }: { c: (typeof credits)[number]; flip: boolean }) 
 }
 
 export default function Home() {
-  const [heroPhoto, flagPhoto, headsetPhoto, , wallPhoto] = photos;
+  const [, , headsetPhoto, jerseyPhoto] = photos;
   return (
     <>
       <header className="sticky top-0 z-40 border-b border-line bg-cream/95 backdrop-blur">
@@ -67,27 +69,28 @@ export default function Home() {
       <main id="main">
         {/* ── Hero ── */}
         <section id="top" className="grain relative overflow-hidden">
-          <Butterfly className="absolute top-24 left-[6%] size-16 -rotate-12 sm:size-20" />
-          <Flower className="absolute top-[42%] right-[5%] size-14 rotate-12 sm:size-20" />
-          <Flower className="absolute bottom-24 left-[3%] hidden size-14 lg:block" />
-          <div className="mx-auto max-w-6xl px-6 pt-10 pb-20 text-center">
+          <Star className="absolute top-24 left-[5%] size-14 -rotate-12 sm:size-20" />
+          <Star tone="oxblood" className="absolute top-[34%] left-[12%] hidden size-10 rotate-12 md:block" />
+          <Sparkle className="absolute top-[40%] right-[7%] size-8 text-oxblood sm:size-12" />
+          <Sparkle className="absolute top-[18%] right-[9%] hidden size-6 text-brown md:block" />
+          <div className="mx-auto max-w-6xl px-6 pt-10 pb-24 text-center">
             <p aria-hidden="true" className="font-display text-[clamp(5rem,21vw,17.5rem)] uppercase leading-[0.8] tracking-tight text-oxblood">
               Portfolio
             </p>
-            {heroPhoto && (
-              <div className="relative z-10 mx-auto -mt-2 w-[min(60vw,18rem)] sm:-mt-[min(9vw,6rem)]">
-                <GiltFrame photo={heroPhoto} shape="arch" className="aspect-[3/4] w-full" imgClass="object-top" />
-                <Butterfly className="absolute -top-6 -right-10 size-14 rotate-12" />
-              </div>
-            )}
-            <h1 className="relative z-20 -mt-3 font-serif sm:-mt-[min(14vw,6.5rem)] text-[clamp(2.8rem,9vw,7rem)] italic leading-[0.9] text-oxblood [text-shadow:0_0_22px_#efe6d4,0_0_6px_#efe6d4,0_0_2px_#efe6d4]">
+            <div className="relative z-10 mx-auto -mt-[min(13vw,9.5rem)] w-[min(70vw,21rem)]">
+              <Cutout photo={cutouts.hands} priority className="w-full" />
+              <p aria-hidden="true" className="absolute top-[50%] -left-[78%] hidden -rotate-6 font-marker text-4xl text-oxblood md:block">hi, I’m abruX!</p>
+              <Arrow className="absolute top-[58%] -left-[38%] hidden w-24 text-oxblood md:block" />
+              <Star className="absolute -right-8 bottom-[34%] size-14 rotate-12 sm:size-16" />
+            </div>
+            <h1 className="relative z-20 -mt-[min(11vw,5.5rem)] font-serif text-[clamp(2.8rem,9vw,7rem)] italic leading-[0.9] text-oxblood [text-shadow:0_0_22px_#efe6d4,0_0_6px_#efe6d4,0_0_2px_#efe6d4]">
               Abril <span className="whitespace-nowrap">Molins Sandner</span>
               <span className="sr-only">, {site.role}</span>
             </h1>
 
             <div className="mt-14 grid gap-10 text-left md:grid-cols-[1fr_1.3fr_auto] md:items-end">
               <p className="font-display text-4xl uppercase leading-[0.95] text-espresso sm:text-5xl">
-                Esports<br />coordinator<br /><span className="text-oxblood">& producer</span>
+                Esports<br />coordinator<br /><span className="relative text-oxblood">& producer<Scribble className="absolute -bottom-3 left-0 w-full text-oxblood" /></span>
               </p>
               <div>
                 <p className="leading-relaxed text-fg-2">{site.intro}</p>
@@ -110,10 +113,14 @@ export default function Home() {
           </div>
         </section>
 
+        <section aria-label="Photo strip" className="relative z-10 -my-8 overflow-hidden py-8">
+          <FilmStrip photos={photos} className="-mx-4 -rotate-2" />
+        </section>
+
         {/* ── Brands ── */}
-        <section aria-labelledby="brands-h" className="on-dark damask bg-espresso py-12">
+        <section aria-labelledby="brands-h" className="on-dark damask bg-espresso pt-16 pb-12">
           <div className="mx-auto max-w-6xl px-6 text-center">
-            <h2 id="brands-h"><Label className="text-gold">Companies and brands I’ve worked with</Label></h2>
+            <h2 id="brands-h" className="flex items-center justify-center gap-3"><Sparkle className="size-4 text-gold" /><Label className="text-gold">Companies and brands I’ve worked with</Label><Sparkle className="size-4 text-gold" /></h2>
             <ul className="mt-7 flex flex-wrap justify-center gap-3 sm:gap-5">
               {brands.map((b) => (
                 <li key={b} className={`grid size-[6.25rem] place-items-center rounded-full bg-cream p-2 text-center font-display uppercase leading-tight tracking-wide text-oxblood ring-2 ring-gold ring-offset-4 ring-offset-espresso sm:size-32 ${b.split(" ").some((w) => w.length > 9) ? "text-[0.7rem] sm:text-sm" : "text-[0.8rem] sm:text-base"}`}>
@@ -126,14 +133,15 @@ export default function Home() {
 
         {/* ── About ── */}
         <section id="about" aria-labelledby="about-h" className="on-dark damask relative overflow-hidden bg-oxblood">
-          <Flower className="absolute top-16 right-[46%] hidden size-14 lg:block" />
+          <Sparkle className="absolute top-16 right-[46%] hidden size-8 text-cream/70 lg:block" />
           <div className="mx-auto grid max-w-6xl gap-14 px-6 py-24 lg:grid-cols-[1.1fr_1fr] lg:items-center">
             <div>
               <ScriptHead id="about-h" script="About" serif="me" tone="light" />
               <div className="mt-8 grid gap-4 text-lg leading-relaxed text-fg-2">
                 {about.map((p) => <p key={p}>{p}</p>)}
               </div>
-              <TornNote className="mt-10 max-w-md -rotate-1" inner="px-7 py-9">
+              <TornNote className="relative mt-10 max-w-md -rotate-1" inner="px-7 py-9">
+                <Tape className="-top-2 left-8 -rotate-6" />
                 <div className="flex items-baseline justify-between border-b border-espresso/40 pb-2">
                   <p className="font-serif text-2xl uppercase tracking-wide">My info</p>
                   <p className="font-script text-2xl text-oxblood">abruX</p>
@@ -155,22 +163,23 @@ export default function Home() {
                 </dl>
               </TornNote>
             </div>
-            {wallPhoto && (
-              <div className="relative mx-auto w-full max-w-sm">
-                <PixelReveal photo={wallPhoto} className="w-full shadow-[0_24px_40px_-18px_rgb(0_0_0/0.7)]" />
-                <Butterfly className="absolute -top-8 -left-8 size-20 -rotate-12" />
-                <Flower className="absolute -right-6 -bottom-6 size-16" />
-              </div>
-            )}
+            <div className="relative mx-auto w-full max-w-md pb-16">
+              {jerseyPhoto && <PixelReveal photo={jerseyPhoto} className="ml-auto w-[78%] rotate-2 shadow-[0_24px_40px_-18px_rgb(0_0_0/0.7)]" />}
+              <Cutout photo={cutouts.portrait} className="absolute -bottom-2 -left-2 w-[58%] -rotate-3" />
+              <p aria-hidden="true" className="absolute right-0 -bottom-2 rotate-[-4deg] font-marker text-3xl text-cream">that’s me!</p>
+              <Arrow className="absolute right-[26%] bottom-6 w-16 -scale-x-100 rotate-12 text-cream" />
+              <Star className="absolute -top-6 left-[14%] size-14 -rotate-12" />
+            </div>
           </div>
         </section>
 
         {/* ── Numbers ── */}
         <section aria-labelledby="numbers-h" className="grain relative overflow-hidden">
-          <Butterfly className="absolute top-14 right-[38%] hidden size-14 rotate-12 lg:block" />
+          <Star tone="oxblood" className="absolute top-14 right-[38%] hidden size-12 rotate-12 lg:block" />
           <div className="mx-auto grid max-w-6xl gap-14 px-6 py-24 lg:grid-cols-[1fr_auto] lg:items-center">
             <div>
               <ScriptHead id="numbers-h" script="By the" serif="numbers" />
+              <Zigzag className="mt-4 w-24 text-oxblood" />
               <ul className="mt-12 grid grid-cols-2 border-y border-line lg:grid-cols-4">
                 {stats.map((s, i) => {
                   const Icon = statIcons[s.icon];
@@ -189,8 +198,9 @@ export default function Home() {
             {headsetPhoto && (
               <div className="relative justify-self-center">
                 <Phone photo={headsetPhoto} label="on comms" className="rotate-3" />
-                <Flower className="absolute -top-6 -left-8 size-16" />
-                <Flower className="absolute -right-6 bottom-20 size-12 rotate-45" />
+                <Star className="absolute -top-6 -left-8 size-16 -rotate-12" />
+                <Sparkle className="absolute -right-6 bottom-24 size-8 text-oxblood" />
+                <p aria-hidden="true" className="absolute -bottom-10 -left-16 -rotate-6 font-marker text-3xl text-oxblood">match day mode</p>
               </div>
             )}
           </div>
@@ -198,7 +208,8 @@ export default function Home() {
 
         {/* ── Services ── */}
         <section id="offer" aria-labelledby="offer-h" className="on-dark damask relative overflow-hidden bg-brown">
-          <Butterfly className="absolute top-16 right-[8%] size-16 rotate-12" />
+          <Star className="absolute top-16 right-[8%] size-16 rotate-12" />
+          <Sparkle className="absolute top-40 right-[16%] size-6 text-cream/70" />
           <div className="mx-auto max-w-6xl px-6 py-24">
             <ScriptHead id="offer-h" script="Services" serif="& what I do" tone="light" />
             <ol className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -224,10 +235,14 @@ export default function Home() {
 
         {/* ── Work ── */}
         <section id="work" aria-labelledby="work-h" className="grain relative overflow-hidden">
-          <Flower className="absolute top-20 right-[10%] size-16" />
-          <Butterfly className="absolute top-36 right-[22%] hidden size-14 -rotate-12 sm:block" />
+          <Star className="absolute top-20 right-[10%] size-16 rotate-12" />
+          <Sparkle className="absolute top-40 right-[22%] hidden size-8 text-oxblood sm:block" />
           <div className="mx-auto max-w-6xl px-6 py-24">
-            <ScriptHead id="work-h" script="Working" serif="experience" />
+            <div className="relative inline-block">
+              <ScriptHead id="work-h" script="Working" serif="experience" />
+              <p aria-hidden="true" className="absolute -right-44 bottom-2 hidden rotate-[-5deg] font-marker text-3xl text-oxblood md:block">the good stuff</p>
+              <Arrow className="absolute -right-24 -bottom-12 hidden w-16 rotate-45 text-oxblood md:block" />
+            </div>
             <div className="mt-16 grid gap-20">
               {workCategories.map((cat) => {
                 const items = credits.filter((c) => c.category === cat);
@@ -257,12 +272,16 @@ export default function Home() {
 
         {/* ── Skills ── */}
         <section id="skills" aria-labelledby="skills-h" className="on-dark damask relative overflow-hidden bg-espresso">
-          <Flower className="absolute top-20 left-[40%] hidden size-14 lg:block" />
+          <Sparkle className="absolute top-20 left-[40%] hidden size-8 text-cream/70 lg:block" />
           <div className="mx-auto grid max-w-6xl gap-12 px-6 py-24 lg:grid-cols-[1fr_1.6fr] lg:items-start">
             <div>
               <ScriptHead id="skills-h" script="Skills" serif="& strengths" tone="light" />
               <p className="mt-6 max-w-sm text-lg leading-relaxed text-fg-2">What I bring to a team, a broadcast or an event, in my own words.</p>
-              <Butterfly className="mt-10 size-20 rotate-6" />
+              <div className="relative mt-10 w-[min(70vw,18rem)]">
+                <Cutout photo={cutouts.headset} className="w-full -rotate-2" />
+                <p aria-hidden="true" className="absolute -right-6 bottom-6 rotate-[-6deg] bg-oxblood px-3 py-1 font-marker text-2xl text-cream shadow-md">on comms</p>
+                <Star className="absolute -top-4 -right-2 size-12 rotate-12" />
+              </div>
             </div>
             <div className="overflow-hidden bg-cream text-espresso shadow-[0_26px_44px_-20px_rgb(0_0_0/0.75)] ring-1 ring-gold ring-offset-4 ring-offset-espresso">
               <div className="flex items-center gap-2 bg-oxblood px-4 py-2.5 text-cream">
@@ -296,22 +315,24 @@ export default function Home() {
 
         {/* ── Education ── */}
         <section id="education" aria-labelledby="edu-h" className="on-dark damask relative overflow-hidden bg-oxblood">
-          <Butterfly className="absolute top-16 right-[8%] size-16 -rotate-12" />
-          <Flower className="absolute bottom-16 left-[6%] size-14" />
+          <Star className="absolute top-16 right-[8%] size-14 -rotate-12" />
+          <Sparkle className="absolute bottom-16 left-[6%] size-8 text-cream/70" />
           <div className="mx-auto grid max-w-6xl gap-12 px-6 py-24 lg:grid-cols-[auto_1fr] lg:items-center">
             <ScriptHead id="edu-h" script="Education" serif="background" tone="light" />
             <ol className="grid gap-10">
               {education.map((e) => (
-                <li key={e.school} className="grain relative max-w-2xl bg-cream p-3 text-espresso shadow-[0_26px_44px_-20px_rgb(0_0_0/0.75)]">
+                <li key={e.school} className="grain relative max-w-2xl -rotate-1 bg-cream p-3 text-espresso shadow-[0_26px_44px_-20px_rgb(0_0_0/0.75)]">
                   <div className="border-2 border-gold p-1">
                     <div className="border border-gold/70 px-6 py-8 text-center sm:px-10">
-                      <Label className="text-oxblood">{e.years} · {e.note}</Label>
+                      <span className="relative inline-block px-3"><Label className="text-oxblood">{e.years} · {e.note}</Label><Loop className="absolute -inset-x-1 -inset-y-3 h-[calc(100%+1.5rem)] w-[calc(100%+0.5rem)] text-oxblood/70" /></span>
                       <h3 className="mt-3 font-serif text-4xl leading-[1.05] sm:text-5xl">{e.program}</h3>
                       <p className="mt-3 font-script text-3xl text-oxblood">{e.credential}</p>
                       <p className="mt-1 text-sm font-bold uppercase tracking-[0.16em]">{e.school} · {e.place}</p>
                       <p className="mx-auto mt-4 max-w-md leading-relaxed text-espresso/75">{e.detail}</p>
                     </div>
                   </div>
+                  <Tape className="-top-3 left-10 -rotate-6" />
+                  <Tape className="-top-3 right-10 rotate-6" />
                   <Seal className="absolute -right-5 -bottom-5 size-20 rotate-12" />
                 </li>
               ))}
@@ -319,9 +340,13 @@ export default function Home() {
           </div>
         </section>
 
+        <section aria-label="More photos" className="relative z-10 -my-8 overflow-hidden py-8">
+          <FilmStrip photos={[...photos].reverse()} reverse className="-mx-4 rotate-1" />
+        </section>
+
         {/* ── Contact ── */}
         <section id="contact" aria-labelledby="contact-h" className="grain relative overflow-hidden">
-          <Flower className="absolute top-14 left-[42%] hidden size-14 lg:block" />
+          <Star tone="oxblood" className="absolute top-20 left-[42%] hidden size-12 rotate-12 lg:block" />
           <div className="mx-auto grid max-w-6xl gap-14 px-6 py-24 lg:grid-cols-[1fr_1.35fr] lg:items-center">
             <div>
               <ScriptHead id="contact-h" script="Let’s work" serif="together" />
@@ -337,13 +362,11 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
-              {flagPhoto && (
-                <figure className="relative mt-12 w-44">
-                  <GiltFrame photo={flagPhoto} shape="oval" className="aspect-[3/4] w-full" />
-                  <figcaption className="mt-3 text-center font-script text-2xl text-oxblood">from Argentina</figcaption>
-                  <Butterfly className="absolute -top-6 -right-12 size-14 rotate-12" />
-                </figure>
-              )}
+              <figure className="relative mt-10 w-[min(64vw,17rem)]">
+                <Cutout photo={cutouts.flag} className="w-full rotate-2" />
+                <figcaption className="absolute -right-24 bottom-10 rotate-[-6deg] font-marker text-3xl leading-none text-oxblood sm:-right-32">from<br />Argentina</figcaption>
+                <Star className="absolute -top-4 -left-4 size-12 -rotate-12" />
+              </figure>
             </div>
             {/* Envelope with the form as the letter */}
             <div className="relative pb-10">
@@ -354,7 +377,7 @@ export default function Home() {
                 <ContactForm />
               </div>
               <Seal className="absolute right-6 bottom-3 size-16 rotate-12 sm:right-10" />
-              <Flower className="absolute -top-6 -right-4 size-16 rotate-12" />
+              <Star className="absolute -top-6 -right-4 size-14 rotate-12" />
             </div>
           </div>
         </section>
@@ -363,7 +386,7 @@ export default function Home() {
       <footer className="on-dark bg-espresso">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-6 py-8 text-sm text-fg-3">
           <p>© {new Date().getFullYear()} {site.name}</p>
-          <p className="font-script text-2xl text-cream">thank you for visiting</p>
+          <p className="flex items-center gap-2 font-script text-2xl text-cream"><Sparkle className="size-4 text-gold" />thank you for visiting<Sparkle className="size-4 text-gold" /></p>
           <a href="/privacy" className="transition-colors hover:text-cream">Privacy</a>
         </div>
       </footer>

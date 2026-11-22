@@ -6,6 +6,7 @@
   --font-serif: "Instrument Serif", ui-serif, Georgia, serif;
   --font-script: "Pinyon Script", "Snell Roundhand", cursive;
   --font-display: "Anton", "Archivo Variable", Impact, sans-serif;
+  --font-marker: "Caveat Brush", "Marker Felt", cursive;
   --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
 
   --color-oxblood: #4b1219;
@@ -82,6 +83,12 @@ p { text-wrap: pretty; }
 
 [id] { scroll-margin-block-start: 72px; }
 
+/* Film strip drift. Two copies of the frames, so moving by half loops cleanly. */
+@keyframes marquee { to { transform: translateX(-50%); } }
+.marquee { animation: marquee 60s linear infinite; }
+.marquee-reverse { animation-direction: reverse; }
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .marquee { animation: none; }
 }

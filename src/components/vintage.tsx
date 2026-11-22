@@ -108,3 +108,108 @@ export function Seal({ className = "" }: C) {
     </svg>
   );
 }
+
+/* ── Collage pieces, in the cream / oxblood / brown palette ── */
+
+export function Star({ className = "", tone = "cream" }: C & { tone?: "cream" | "oxblood" }) {
+  const fill = tone === "cream" ? "#f6efe2" : "#6b1d27";
+  return (
+    <svg viewBox="0 0 100 100" aria-hidden="true" className={className}>
+      <path d="M51 4 63 37 97 38 70 59 80 94 50 73 19 95 30 59 3 38 38 36Z" fill={fill} stroke="#24150f" strokeWidth="3.5" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function Sparkle({ className = "" }: C) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className={className}>
+      <path d="M12 1c.6 5.6 4.4 9.4 11 11-6.6 1.6-10.4 5.4-11 11-.6-5.6-4.4-9.4-11-11C7.6 10.4 11.4 6.6 12 1Z" fill="currentColor" />
+    </svg>
+  );
+}
+
+/* Hand-drawn double underline. Colour comes from currentColor. */
+export function Scribble({ className = "" }: C) {
+  return (
+    <svg viewBox="0 0 300 30" aria-hidden="true" className={className} fill="none">
+      <path d="M4 18c40-9 95-12 150-8s95 6 142-3M20 25c60-6 140-8 255-4" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+/* Loose loop drawn around a word. Place it absolutely over the word. */
+export function Loop({ className = "" }: C) {
+  return (
+    <svg viewBox="0 0 200 80" preserveAspectRatio="none" aria-hidden="true" className={className} fill="none">
+      <path d="M150 10C110 0 30 4 10 30s40 46 100 44 88-20 82-42S120 4 60 14" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+/* Curly marker arrow, pointing down-right by default. */
+export function Arrow({ className = "" }: C) {
+  return (
+    <svg viewBox="0 0 120 90" aria-hidden="true" className={className} fill="none">
+      <path d="M6 10c30-6 52 6 46 26-5 16-26 10-20-4 8-18 50-8 66 40" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+      <path d="M86 62l12 12 6-16" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+/* Zig-zag scribble used as a filler mark. */
+export function Zigzag({ className = "" }: C) {
+  return (
+    <svg viewBox="0 0 120 30" aria-hidden="true" className={className} fill="none">
+      <path d="M4 22 18 8l14 14L46 8l14 14L74 8l14 14 14-14 14 14" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function Tape({ className = "" }: C) {
+  return (
+    <span aria-hidden="true"
+      className={`absolute z-10 h-7 w-24 bg-[repeating-linear-gradient(90deg,rgb(239_230_212/0.8)_0_6px,rgb(227_214_189/0.75)_6px_12px)] shadow-sm ${className}`} />
+  );
+}
+
+/* Background-removed photo with a cream sticker edge (baked into the image). */
+export function Cutout({ photo, className = "", priority = false }: { photo: Photo; className?: string; priority?: boolean }) {
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img src={photo.src} alt={photo.alt} fetchPriority={priority ? "high" : undefined}
+      className={`h-auto drop-shadow-[0_18px_22px_rgb(36_21_15/0.45)] ${className}`} />
+  );
+}
+
+/* A taped print: photo with a cream border, a strip of tape and an optional marker caption. */
+export function Print({ photo, caption, className = "", imgClass = "aspect-[4/5]" }: { photo: Photo; caption?: string; className?: string; imgClass?: string }) {
+  return (
+    <figure className={`relative bg-raised p-2.5 pb-3 shadow-[0_16px_28px_-14px_rgb(36_21_15/0.55)] ${className}`}>
+      <Tape className="-top-3 left-1/2 -translate-x-1/2 -rotate-3" />
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={photo.src} alt={photo.alt} className={`w-full object-cover ${imgClass}`} />
+      {caption && <figcaption className="mt-2 text-center font-marker text-2xl leading-none text-oxblood">{caption}</figcaption>}
+    </figure>
+  );
+}
+
+/* Horizontal film strip that drifts sideways. The photo set is shown twice so the loop is seamless;
+   the second copy is hidden from screen readers. */
+export function FilmStrip({ photos, className = "", reverse = false }: { photos: Photo[]; className?: string; reverse?: boolean }) {
+  const frames = [0, 1].flatMap((r) => photos.map((p, i) => ({ p, key: `${r}-${i}`, dup: r > 0 })));
+  const holes = "bg-[repeating-linear-gradient(90deg,#efe6d4_0_10px,transparent_10px_22px)]";
+  return (
+    <div className={`relative overflow-hidden bg-espresso py-5 shadow-[0_18px_30px_-16px_rgb(0_0_0/0.6)] ${className}`}>
+      <span aria-hidden="true" className={`absolute inset-x-0 top-1.5 h-2 opacity-80 ${holes}`} />
+      <span aria-hidden="true" className={`absolute inset-x-0 bottom-1.5 h-2 opacity-80 ${holes}`} />
+      <ul className={`marquee flex w-max ${reverse ? "marquee-reverse" : ""}`}>
+        {frames.map(({ p, key, dup }) => (
+          <li key={key} aria-hidden={dup || undefined} className="mr-3 aspect-[4/3] w-44 shrink-0 overflow-hidden bg-brown sm:w-60">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={p.src} alt={dup ? "" : p.alt} className="size-full object-cover object-[50%_25%] sepia-[.3] saturate-[.85]" />
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}

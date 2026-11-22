@@ -77,7 +77,7 @@ export type Credit = {
   photos?: { src: string; alt: string }[];
 };
 
-// Categories with no credits are hidden. "marketing" is empty until Abril adds her marketing work.
+// Categories with no credits are hidden. "marketing" is empty until marketing work is added.
 export const credits: Credit[] = [
   {
     category: "management", year: "2026", title: "St. Clair College Esports", role: "Esports coordinator, varsity and academy teams",
@@ -119,13 +119,22 @@ export const stats = [
   { icon: "gamepad", value: "2", label: "games, played and broadcast" },
 ] as const;
 
-// Drop photos into /public/photos and list them here. The hero badge uses the
-// first one, the film strip uses the rest. With none, the collage still works.
+// Drop photos into /public/photos and list them here. They show in the film strips
+// and in frames around the page.
 export type Photo = { src: string; alt: string };
 export const photos: Photo[] = [
-  { src: "/photos/badge-saints.webp", alt: "Abril in a green St. Clair Saints jersey, framing her face with her hands" },
+  { src: "/photos/badge-saints.webp", alt: "Abril in a green St. Clair Saints jersey, hands framing the face" },
   { src: "/photos/flag.webp", alt: "Abril in a Saints jersey holding the Argentina flag" },
-  { src: "/photos/headset.webp", alt: "Abril at her desk wearing a headset" },
+  { src: "/photos/headset.webp", alt: "Abril at a desk wearing a headset" },
   { src: "/photos/jersey.webp", alt: "Abril in a St. Clair Saints jersey" },
   { src: "/photos/portrait.webp", alt: "Abril with arms crossed against a plain wall" },
 ];
+
+// Cut-out versions (background removed, cream sticker edge) in /public/cutouts.
+export const cutouts = {
+  hands: { src: "/cutouts/badge-saints.webp", alt: "Abril in a St. Clair Saints jersey, hands framing the face" },
+  portrait: { src: "/cutouts/portrait.webp", alt: "Abril with arms crossed, smiling" },
+  headset: { src: "/cutouts/headset.webp", alt: "Abril wearing a gaming headset" },
+  jersey: { src: "/cutouts/jersey.webp", alt: "Abril in a St. Clair Saints jersey" },
+  flag: { src: "/cutouts/flag.webp", alt: "Abril in a Saints jersey with the Argentina flag" },
+} satisfies Record<string, Photo>;
