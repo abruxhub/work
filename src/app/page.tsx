@@ -111,12 +111,12 @@ export default function Home() {
         </section>
 
         {/* ── Brands ── */}
-        <section aria-labelledby="brands-h" className="on-dark damask bg-green py-12">
+        <section aria-labelledby="brands-h" className="on-dark damask bg-espresso py-12">
           <div className="mx-auto max-w-6xl px-6 text-center">
             <h2 id="brands-h"><Label className="text-gold">Companies and brands I’ve worked with</Label></h2>
             <ul className="mt-7 flex flex-wrap justify-center gap-3 sm:gap-5">
               {brands.map((b) => (
-                <li key={b} className={`grid size-[6.25rem] place-items-center rounded-full bg-cream p-2 text-center font-display uppercase leading-tight tracking-wide text-oxblood ring-2 ring-gold ring-offset-4 ring-offset-green sm:size-32 ${b.split(" ").some((w) => w.length > 9) ? "text-[0.7rem] sm:text-sm" : "text-[0.8rem] sm:text-base"}`}>
+                <li key={b} className={`grid size-[6.25rem] place-items-center rounded-full bg-cream p-2 text-center font-display uppercase leading-tight tracking-wide text-oxblood ring-2 ring-gold ring-offset-4 ring-offset-espresso sm:size-32 ${b.split(" ").some((w) => w.length > 9) ? "text-[0.7rem] sm:text-sm" : "text-[0.8rem] sm:text-base"}`}>
                   {b}
                 </li>
               ))}
@@ -235,7 +235,7 @@ export default function Home() {
                 return (
                   <div key={cat}>
                     <h3 className="flex items-center gap-4">
-                      <span className="bg-green px-4 py-2 font-sans text-xs font-bold uppercase tracking-[0.22em] text-cream">{cat}</span>
+                      <span className="bg-brown px-4 py-2 font-sans text-xs font-bold uppercase tracking-[0.22em] text-cream">{cat}</span>
                       <span aria-hidden="true" className="h-px flex-1 bg-line" />
                       <span className="font-serif italic text-fg-3">{items.length} {items.length === 1 ? "role" : "roles"}</span>
                     </h3>
@@ -256,7 +256,7 @@ export default function Home() {
         </section>
 
         {/* ── Skills ── */}
-        <section id="skills" aria-labelledby="skills-h" className="on-dark damask relative overflow-hidden bg-green">
+        <section id="skills" aria-labelledby="skills-h" className="on-dark damask relative overflow-hidden bg-espresso">
           <Flower className="absolute top-20 left-[40%] hidden size-14 lg:block" />
           <div className="mx-auto grid max-w-6xl gap-12 px-6 py-24 lg:grid-cols-[1fr_1.6fr] lg:items-start">
             <div>
@@ -264,7 +264,7 @@ export default function Home() {
               <p className="mt-6 max-w-sm text-lg leading-relaxed text-fg-2">What I bring to a team, a broadcast or an event, in my own words.</p>
               <Butterfly className="mt-10 size-20 rotate-6" />
             </div>
-            <div className="overflow-hidden bg-cream text-espresso shadow-[0_26px_44px_-20px_rgb(0_0_0/0.75)] ring-1 ring-gold ring-offset-4 ring-offset-green">
+            <div className="overflow-hidden bg-cream text-espresso shadow-[0_26px_44px_-20px_rgb(0_0_0/0.75)] ring-1 ring-gold ring-offset-4 ring-offset-espresso">
               <div className="flex items-center gap-2 bg-oxblood px-4 py-2.5 text-cream">
                 <span aria-hidden="true" className="size-2.5 rounded-full bg-cream" />
                 <span aria-hidden="true" className="size-2.5 rounded-full bg-cream/60" />

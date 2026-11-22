@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* Vintage editorial: oxblood, brown, cream, dark green, a touch of gilt. */
+/* Vintage editorial: oxblood, brown, cream, a touch of gilt. */
 @theme {
   --font-sans: "Archivo Variable", ui-sans-serif, system-ui, sans-serif;
   --font-serif: "Instrument Serif", ui-serif, Georgia, serif;
@@ -14,8 +14,6 @@
   --color-espresso: #24150f;
   --color-cream: #efe6d4;
   --color-parchment: #e3d6bd;
-  --color-green: #2e3a26;
-  --color-olive: #59613f;
   --color-gold: #b08d57;
 
   /* Text roles for light (cream) surfaces; .on-dark flips them. */
