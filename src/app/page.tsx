@@ -69,27 +69,24 @@ export default function Home() {
       <main id="main">
         {/* ── Hero ── */}
         <section id="top" className="grain relative overflow-hidden">
-          <Star className="absolute top-24 left-[5%] size-14 -rotate-12 sm:size-20" />
+          <Star className="absolute top-[44%] left-[4%] size-12 -rotate-12 sm:top-24 sm:size-20" />
           <Star tone="oxblood" className="absolute top-[34%] left-[12%] hidden size-10 rotate-12 md:block" />
           <Sparkle className="absolute top-[40%] right-[7%] size-8 text-oxblood sm:size-12" />
           <Sparkle className="absolute top-[18%] right-[9%] hidden size-6 text-brown md:block" />
           <div className="mx-auto max-w-6xl px-6 pt-10 pb-24 text-center">
-            <p aria-hidden="true" className="font-display text-[clamp(5rem,21vw,17.5rem)] uppercase leading-[0.8] tracking-tight text-oxblood">
-              Portfolio
-            </p>
-            <div className="relative z-10 mx-auto -mt-[min(13vw,9.5rem)] w-[min(70vw,21rem)]">
+            <h1 className="relative mx-auto inline-flex flex-col items-start">
+              <span className="relative z-20 -mb-3 -ml-2 -rotate-3 bg-espresso px-5 pt-1 pb-2.5 font-sans text-[clamp(2rem,6vw,4.25rem)] font-extrabold lowercase leading-none tracking-tight text-cream shadow-md sm:-ml-6">meet</span>
+              <span className="font-serif text-[clamp(7rem,30vw,22rem)] uppercase leading-[0.8] text-oxblood">Abril</span>
+              <span className="sr-only"> Molins Sandner, {site.role}</span>
+            </h1>
+            <div className="relative z-10 mx-auto -mt-[min(5vw,3.5rem)] w-[min(70vw,21rem)]">
               <Cutout photo={cutouts.hands} priority className="w-full" />
               <p aria-hidden="true" className="absolute top-[50%] -left-[78%] hidden -rotate-6 font-marker text-4xl text-oxblood md:block">hi, I’m abruX!</p>
               <Arrow className="absolute top-[58%] -left-[38%] hidden w-24 text-oxblood md:block" />
               <Star className="absolute -right-8 bottom-[34%] size-14 rotate-12 sm:size-16" />
             </div>
-            <div className="relative z-20 -mt-[min(12vw,6rem)] flex flex-col items-center">
-              <h1 className="inline-flex flex-col items-start">
-                <span className="relative z-10 -mb-2 -ml-3 -rotate-3 bg-espresso px-4 pt-1 pb-2 font-sans text-[clamp(1.6rem,4.5vw,2.75rem)] font-extrabold lowercase leading-none tracking-tight text-cream shadow-md">meet</span>
-                <span className="font-serif text-[clamp(5rem,15vw,11rem)] uppercase leading-[0.85] text-oxblood [text-shadow:0_0_22px_#efe6d4,0_0_6px_#efe6d4,0_0_2px_#efe6d4]">Abril</span>
-                <span className="sr-only"> Molins Sandner, {site.role}</span>
-              </h1>
-              <Scribble className="-mt-1 w-[min(80vw,26rem)] text-oxblood" />
+            <div className="relative z-20 -mt-6 flex flex-col items-center">
+              <Scribble className="w-[min(80vw,28rem)] text-oxblood" />
               <p className="relative mt-5 inline-block px-8 py-3 font-sans text-sm font-bold lowercase tracking-wide text-espresso sm:text-base">
                 <Loop className="absolute inset-0 size-full text-oxblood" />
                 ✱ coordinator, producer, translator
