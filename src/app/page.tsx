@@ -1,9 +1,10 @@
 import { Plus } from "lucide-react";
 import {
-  about, brands, credits, cutouts, education, eventPhotos, faqs, highlights, photos, services, site, skillGroups, stats, workCategories,
+  about, brands, credits, education, eventPhotos, faqs, highlights, photos, services, site, skillGroups, stats, workCategories,
 } from "@/content/site";
 import { ContactForm } from "@/components/contact-form";
-import { Credential, Cutout, Label, Loop, Print, Scribble, Seal, Sparkle, Star, Tape, TornNote } from "@/components/vintage";
+import { WorkLog } from "@/components/work-log";
+import { Credential, Label, Loop, Print, Scribble, Seal, Sparkle, Star, Tape, TornNote } from "@/components/vintage";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -17,41 +18,10 @@ const jsonLd = {
 };
 
 const socialShort: Record<string, string> = { X: "X", Instagram: "IG", LinkedIn: "in" };
-const tilt = ["rotate-2", "-rotate-2", "rotate-1", "-rotate-1"];
 
 const btn = "inline-block border-2 px-6 py-3 text-xs font-bold uppercase tracking-[0.18em] transition-colors";
 const btnSolid = `${btn} border-oxblood bg-oxblood text-cream hover:border-espresso hover:bg-espresso`;
 const btnLine = `${btn} border-espresso text-espresso hover:bg-espresso hover:text-cream`;
-
-function WorkEntry({ c, flip }: { c: (typeof credits)[number]; flip: boolean }) {
-  const pics = (c.photos ?? []).slice(0, 4);
-  return (
-    <li className={`grid items-center gap-8 ${pics.length ? "lg:col-span-2 lg:grid-cols-2 lg:gap-14" : ""} ${pics.length && flip ? "lg:[&>*:first-child]:order-2" : ""}`}>
-      <div className="relative border-l-4 border-oxblood bg-raised p-6 shadow-[0_14px_28px_-18px_rgb(36_21_15/0.5)] sm:p-8">
-        <Label className="text-fg-3">{c.year}</Label>
-        <h4 className="mt-2 font-serif text-3xl leading-tight sm:text-4xl">{c.title}</h4>
-        <p className="mt-1 font-serif text-lg italic text-oxblood">{c.role}</p>
-        {c.points && (
-          <ul className="mt-4 grid gap-1.5 text-fg-2">
-            {c.points.map((pt) => (
-              <li key={pt} className="flex gap-3"><span aria-hidden="true" className="mt-2.5 h-px w-4 shrink-0 bg-oxblood" />{pt}</li>
-            ))}
-          </ul>
-        )}
-      </div>
-      {pics.length > 0 && (
-        <ul className={`relative grid gap-6 ${pics.length === 1 ? "grid-cols-1 justify-items-center" : "grid-cols-2"}`}>
-          {pics.map((p, i) => (
-            <li key={p.src} className={`${pics.length === 3 && i === 0 ? "col-span-2" : ""} ${pics.length === 1 ? "w-full max-w-md" : ""} ${tilt[i % tilt.length]}`}>
-              <Print photo={p} imgClass="aspect-[4/3]" />
-            </li>
-          ))}
-          <Star className="absolute -top-6 -right-4 size-12 rotate-12" />
-        </ul>
-      )}
-    </li>
-  );
-}
 
 export default function Home() {
   const [handsPhoto, , headsetPhoto, jerseyPhoto, portraitPhoto] = photos;
@@ -222,44 +192,14 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 7. Feature block: working experience, with the full list below */}
+        {/* 7. Work log */}
         <section id="work" aria-labelledby="work-h" className="grain relative overflow-hidden">
-          <div className="mx-auto max-w-6xl px-6 py-24">
-            <div className="grid items-center gap-12 lg:grid-cols-[1.2fr_1fr]">
-              <div>
-                <h2 id="work-h" className="font-serif text-5xl leading-none sm:text-6xl">Working experience</h2>
-                <p className="mt-3 font-serif text-xl italic text-oxblood">Teams, broadcasts, events and translation.</p>
-                <p className="mt-6 max-w-xl text-lg leading-relaxed text-fg-2">
-                  I coordinate the St. Clair Saints varsity and academy teams, work behind the scenes on VALORANT and League of Legends broadcasts, staff LAN and online events, and translate games into Spanish and Portuguese.
-                </p>
-                <div className="mt-8 flex flex-wrap gap-4">
-                  <a href="#roles" className={btnSolid}>All roles</a>
-                  <a href="#contact" className={btnLine}>Hire me</a>
-                </div>
-              </div>
-              <div className="relative mx-auto w-full max-w-sm">
-                <Cutout photo={cutouts.headset} className="w-full" />
-                <p aria-hidden="true" className="absolute right-0 bottom-6 rotate-[-6deg] bg-oxblood px-3 py-1 font-marker text-2xl text-cream shadow-md">on comms</p>
-              </div>
-            </div>
-
-            <div id="roles" className="mt-24 grid gap-20">
-              {workCategories.map((cat) => {
-                const items = credits.filter((c) => c.category === cat);
-                if (!items.length) return null;
-                return (
-                  <div key={cat}>
-                    <h3 className="flex items-center gap-4">
-                      <span className="bg-brown px-4 py-2 font-sans text-xs font-bold uppercase tracking-[0.22em] text-cream">{cat}</span>
-                      <span aria-hidden="true" className="h-px flex-1 bg-line" />
-                      <span className="font-serif italic text-fg-3">{items.length} {items.length === 1 ? "role" : "roles"}</span>
-                    </h3>
-                    <ol className="mt-10 grid gap-x-10 gap-y-12 lg:grid-cols-2">
-                      {items.map((c, i) => <WorkEntry key={c.title + c.role} c={c} flip={i % 2 === 1} />)}
-                    </ol>
-                  </div>
-                );
-              })}
+          <Star className="absolute top-16 right-[8%] hidden size-12 rotate-12 md:block" />
+          <div className="mx-auto max-w-6xl px-6 py-20">
+            <h2 id="work-h" className="font-display text-5xl uppercase leading-none tracking-wide sm:text-6xl">Work log</h2>
+            <p className="mt-3 text-fg-2">Every role, newest first. Tap Photos to see pictures from the job.</p>
+            <div className="mt-8">
+              <WorkLog credits={credits} categories={workCategories} />
             </div>
           </div>
         </section>
