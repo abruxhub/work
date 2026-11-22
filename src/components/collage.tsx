@@ -64,28 +64,6 @@ export function Credential({ name, handle, role, photo }: { name: string; handle
   );
 }
 
-/* Vertical film strip. Uses photos when given, words otherwise. */
-export function FilmStrip({ photos, words, className = "" }: { photos: Photo[]; words: string[]; className?: string }) {
-  const frames = photos.length ? photos.map((p) => ({ p, w: "" })) : words.map((w) => ({ p: undefined as Photo | undefined, w }));
-  return (
-    <div aria-hidden={photos.length ? undefined : true}
-      className={`relative w-44 rotate-2 bg-ink px-5 py-4 shadow-lg before:absolute before:inset-y-2 before:left-1.5 before:w-2 before:bg-[repeating-linear-gradient(180deg,#f7f2ed_0_6px,transparent_6px_14px)] after:absolute after:inset-y-2 after:right-1.5 after:w-2 after:bg-[repeating-linear-gradient(180deg,#f7f2ed_0_6px,transparent_6px_14px)] ${className}`}>
-      <ul className="grid gap-3">
-        {frames.map(({ p, w }, i) => (
-          <li key={i} className="grid aspect-square place-items-center overflow-hidden bg-paper">
-            {p ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={p.src} alt={p.alt} className="size-full object-cover grayscale" />
-            ) : (
-              <span className="font-marker text-3xl text-bg">{w}</span>
-            )}
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
 /* Word search with the services circled. Decorative; the real list sits beside it. */
 const GRID: { row: string; hit?: [number, number] }[] = [
   { row: "QTEAMSXVBK", hit: [1, 6] },
@@ -115,5 +93,17 @@ export function WordSearch({ className = "" }: { className?: string }) {
         </div>
       ))}
     </div>
+  );
+}
+
+/* A single taped polaroid with a marker caption. */
+export function Polaroid({ photo, caption, className = "" }: { photo: Photo; caption?: string; className?: string }) {
+  return (
+    <figure className={`relative w-[min(70vw,15rem)] bg-white p-3 pb-4 shadow-[0_14px_28px_-12px_rgb(22_17_19/0.5)] ${className}`}>
+      <Tape className="-top-3 left-1/2 -translate-x-1/2 rotate-3" />
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={photo.src} alt={photo.alt} className="aspect-square w-full object-cover grayscale" />
+      {caption && <figcaption className="mt-3 text-center font-marker text-2xl leading-none text-ink">{caption}</figcaption>}
+    </figure>
   );
 }

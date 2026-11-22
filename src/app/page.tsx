@@ -1,6 +1,6 @@
 import { about, credits, education, photos, services, site, skillGroups } from "@/content/site";
 import { ContactForm } from "@/components/contact-form";
-import { Credential, FilmStrip, Scribble, Star, Tag, Tape, WordSearch } from "@/components/collage";
+import { Credential, Polaroid, Scribble, Star, Tag, Tape, WordSearch } from "@/components/collage";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -16,7 +16,7 @@ const jsonLd = {
 const tilt = ["-rotate-2", "rotate-1", "-rotate-1", "rotate-2", "rotate-0"];
 
 export default function Home() {
-  const [heroPhoto, ...stripPhotos] = photos;
+  const [heroPhoto, flagPhoto, headsetPhoto, jerseyPhoto, wallPhoto] = photos;
   return (
     <>
       <header className="sticky top-0 z-40 bg-bg/95 backdrop-blur">
@@ -84,7 +84,7 @@ export default function Home() {
             <h2 id="about-h" className="order-first -rotate-6 font-marker text-[clamp(5rem,13vw,9rem)] leading-[0.8] text-bg md:order-none">
               about<br />&nbsp;&nbsp;me
             </h2>
-            <FilmStrip photos={stripPhotos} words={["LAN", "POV", "GG", "ES/PT"]} className="justify-self-center" />
+            {flagPhoto && <Polaroid photo={flagPhoto} caption="from argentina" className="justify-self-center rotate-3" />}
           </div>
         </section>
 
@@ -109,11 +109,14 @@ export default function Home() {
         {/* Work */}
         <section id="work" aria-labelledby="work-h" className="paper overflow-hidden">
           <div className="mx-auto max-w-6xl px-6 py-20">
-            <h2 id="work-h" className="grid justify-items-start gap-1">
-              <Tag className="text-[clamp(2rem,5vw,3.25rem)]">teams.</Tag>
-              <Tag className="text-[clamp(2rem,5vw,3.25rem)]">events.</Tag>
-              <Tag className="text-[clamp(2rem,5vw,3.25rem)]">broadcasts.</Tag>
-            </h2>
+            <div className="flex flex-wrap items-center justify-between gap-10">
+              <h2 id="work-h" className="grid justify-items-start gap-1">
+                <Tag className="text-[clamp(2rem,5vw,3.25rem)]">teams.</Tag>
+                <Tag className="text-[clamp(2rem,5vw,3.25rem)]">events.</Tag>
+                <Tag className="text-[clamp(2rem,5vw,3.25rem)]">broadcasts.</Tag>
+              </h2>
+              {headsetPhoto && <Polaroid photo={headsetPhoto} caption="on comms" className="-rotate-3 sm:mr-10" />}
+            </div>
             <svg aria-hidden="true" viewBox="0 0 1200 60" preserveAspectRatio="none" className="mt-10 h-10 w-full text-bg">
               <path d="M0 10 C 300 60, 900 60, 1200 10" fill="none" stroke="currentColor" strokeWidth="4" />
             </svg>
@@ -137,8 +140,12 @@ export default function Home() {
               <h2 id="skills-h" className="font-serif text-7xl uppercase leading-none text-white sm:text-8xl">Skills</h2>
               <p className="pb-2 font-marker text-3xl text-blush">what I bring to the team</p>
             </div>
-            <Star className="absolute top-12 right-6 size-20 rotate-12 sm:size-28" />
-            <div className="mt-12 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+            {jerseyPhoto && (
+              <div className="absolute top-10 right-6 hidden lg:block">
+                <Polaroid photo={jerseyPhoto} caption="game day" className="rotate-6" />
+              </div>
+            )}
+            <div className="mt-12 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 lg:pr-72">
               {skillGroups.map((g) => (
                 <div key={g.title}>
                   <h3><Tag className="text-2xl">{g.title}</Tag></h3>
@@ -155,7 +162,7 @@ export default function Home() {
 
         {/* Education */}
         <section id="education" aria-labelledby="edu-h" className="paper overflow-hidden">
-          <div className="mx-auto grid max-w-6xl gap-12 px-6 py-20 lg:grid-cols-[auto_1fr] lg:items-center">
+          <div className="mx-auto grid max-w-6xl gap-12 px-6 py-20 lg:grid-cols-[auto_1fr_auto] lg:items-center">
             <h2 id="edu-h" className="-rotate-3 font-marker text-[clamp(4.5rem,11vw,8rem)] leading-[0.8] text-bg">
               school<br />&nbsp;days
             </h2>
@@ -174,6 +181,7 @@ export default function Home() {
                 </li>
               ))}
             </ol>
+            {wallPhoto && <Polaroid photo={wallPhoto} caption="st. clair saints" className="justify-self-center -rotate-2" />}
           </div>
         </section>
 
