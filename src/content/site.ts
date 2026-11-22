@@ -84,13 +84,53 @@ export const credits: Credit[] = [
     points: ["Manage the Saints varsity and academy rosters", "Run match days, including the VALORANT playoffs", "Support college events and bootcamps"],
     photos: [{ src: "/photos/jersey.webp", alt: "Abril in a St. Clair Saints jersey" }],
   },
-  { category: "broadcast", year: "2026", title: "NACE VALORANT Grand Finals", role: "Observer (POV) and production assistant" },
+  {
+    category: "broadcast", year: "2026", title: "NACE VALORANT Grand Finals", role: "Observer (POV) and production assistant",
+    points: ["POV observer at one of the biggest North American collegiate LANs", "Production assistant on the broadcast"],
+    photos: [
+      { src: "/work/nace-3.webp", alt: "Production desk with broadcast monitors at the NACE VALORANT Grand Finals" },
+      { src: "/work/nace-4.webp", alt: "Observers at their stations during the NACE finals" },
+      { src: "/work/nace-2.webp", alt: "Analyst desk being filmed at the NACE finals" },
+      { src: "/work/nace-1.webp", alt: "Observer station with VALORANT on screen" },
+    ],
+  },
+  {
+    category: "broadcast", year: "2026", title: "Creator Cup VALORANT", role: "Observer (POV)",
+    points: ["Fundraising event supporting 1000 Dreams Fund"],
+    photos: [
+      { src: "/work/creator-1.webp", alt: "Production room during the Creator Cup VALORANT" },
+      { src: "/work/creator-2.webp", alt: "Abril observing at a PC during the Creator Cup" },
+    ],
+  },
   { category: "broadcast", year: "2025", title: "St. Clair College Esports", role: "Replay operator, League of Legends" },
+  {
+    category: "tournament", year: "2026", title: "Tau Ceti Cup (Bungie’s Marathon)", role: "Referee and admin, Spanish creator team",
+    points: ["Creator event for the launch of Bungie’s Marathon", "Admin for Rubius, TheGrefg and IlloJuan, and kept score"],
+    photos: [{ src: "/work/tauceti-2.webp", alt: "Tau Ceti Cup scoreboard graphic for Marathon" }],
+  },
   { category: "tournament", year: "2026", title: "Last Chance", role: "Online coordination, team manager contact" },
   { category: "event organizer", year: "2026", title: "Fragadelphia Windsor", role: "Event staff" },
   { category: "event organizer", year: "2026", title: "The Summoning", role: "Event staff" },
-  { category: "event organizer", year: "2026", title: "St. Clair summer camps", role: "Camp staff" },
-  { category: "more", year: "2026", title: "Full game localization", role: "Translation into Spanish and Portuguese" },
+  {
+    category: "event organizer", year: "2026", title: "St. Clair summer camps", role: "Camp staff",
+    photos: [
+      { src: "/work/july-2.webp", alt: "Campers gathered in the St. Clair esports arena" },
+      { src: "/work/july-3.webp", alt: "Campers working at tables in the St. Clair esports arena" },
+    ],
+  },
+  {
+    category: "event organizer", year: "2024", title: "AGS with ShindeN", role: "Event staff (UADE industry placement)",
+    photos: [
+      { src: "/work/ags-1.webp", alt: "Event team photo at the ShindeN booth" },
+      { src: "/work/ags-2.webp", alt: "Abril at the ShindeN booth" },
+      { src: "/work/ags-3.webp", alt: "Players at the ShindeN booth stations" },
+    ],
+  },
+  {
+    category: "more", year: "2026", title: "Relic Arena localization", role: "Full game translation into Spanish and Portuguese",
+    points: ["Out now on Steam"],
+    photos: [{ src: "/work/relic.webp", alt: "Relic Arena key art" }],
+  },
   { category: "more", year: "2025", title: "No Sweat Blossom", role: "Professional VALORANT player" },
   { category: "more", year: "Earlier", title: "VCT Game Changers LATAM", role: "Professional VALORANT player" },
 ];
@@ -109,7 +149,22 @@ export const brands = [
   "The Summoning",
   "No Sweat Blossom",
   "VCT Game Changers LATAM",
+  "Bungie",
+  "ShindeN",
+  "Relic Arena",
 ] as const;
+
+// Event photos for the film strips (from Abril's LinkedIn posts).
+export const eventPhotos: Photo[] = [
+  { src: "/work/july-1.webp", alt: "Group photo in the St. Clair Saints esports arena" },
+  { src: "/work/nace-3.webp", alt: "Broadcast production desk at the NACE finals" },
+  { src: "/work/ags-1.webp", alt: "Event team at the ShindeN booth" },
+  { src: "/work/nace-4.webp", alt: "Observer stations at the NACE finals" },
+  { src: "/work/july-4.webp", alt: "Staff badge and camera at an event" },
+  { src: "/work/creator-1.webp", alt: "Production room at the Creator Cup" },
+  { src: "/work/ags-3.webp", alt: "Players at the ShindeN booth" },
+  { src: "/work/july-3.webp", alt: "Campers in the St. Clair esports arena" },
+];
 
 // Public numbers as of Nov 2026. Update when they change.
 export const stats = [

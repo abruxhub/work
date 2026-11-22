@@ -1,5 +1,5 @@
 import { ClipboardList, Gamepad2, Languages, Users } from "lucide-react";
-import { about, brands, credits, cutouts, education, photos, services, site, skillGroups, stats, workCategories } from "@/content/site";
+import { about, brands, credits, cutouts, education, eventPhotos, photos, services, site, skillGroups, stats, workCategories } from "@/content/site";
 import { ContactForm } from "@/components/contact-form";
 import { Arrow, Credential, Cutout, FilmStrip, Label, Loop, Phone, Print, ScriptHead, Scribble, Seal, Sparkle, Star, Tape, TornNote, Zigzag } from "@/components/vintage";
 
@@ -110,7 +110,7 @@ export default function Home() {
         </section>
 
         <section aria-label="Photo strip" className="relative z-10 -my-8 overflow-hidden py-8">
-          <FilmStrip photos={photos} className="-mx-4 -rotate-2" />
+          <FilmStrip photos={eventPhotos} className="-mx-4 -rotate-2" />
         </section>
 
         {/* ── Brands ── */}
@@ -337,7 +337,7 @@ export default function Home() {
         </section>
 
         <section aria-label="More photos" className="relative z-10 -my-8 overflow-hidden py-8">
-          <FilmStrip photos={[...photos].reverse()} reverse className="-mx-4 rotate-1" />
+          <FilmStrip photos={[...photos, ...eventPhotos.slice(0, 4)].reverse()} reverse className="-mx-4 rotate-1" />
         </section>
 
         {/* ── Contact ── */}
