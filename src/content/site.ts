@@ -58,19 +58,23 @@ export const services = [
   },
 ] as const;
 
-export type Credit = { year: string; title: string; role: string };
+export const workCategories = ["management", "broadcast", "marketing", "tournament", "event organizer", "more"] as const;
+export type WorkCategory = (typeof workCategories)[number];
 
+export type Credit = { year: string; title: string; role: string; category: WorkCategory };
+
+// Categories with no credits are hidden. "marketing" is empty until Abril adds her marketing work.
 export const credits: Credit[] = [
-  { year: "2026", title: "St. Clair College Esports", role: "Esports coordinator, varsity and academy teams" },
-  { year: "2026", title: "Last Chance", role: "Online coordination, team manager contact" },
-  { year: "2026", title: "Fragadelphia Windsor", role: "Event staff" },
-  { year: "2026", title: "The Summoning", role: "Event staff" },
-  { year: "2026", title: "St. Clair summer camps", role: "Camp staff" },
-  { year: "2026", title: "NACE VALORANT Grand Finals", role: "Observer (POV) and production assistant" },
-  { year: "2026", title: "Full game localization", role: "Translation into Spanish and Portuguese" },
-  { year: "2025", title: "St. Clair College Esports", role: "Replay operator, League of Legends" },
-  { year: "2025", title: "No Sweat Blossom", role: "Professional VALORANT player" },
-  { year: "Earlier", title: "VCT Game Changers LATAM", role: "Professional VALORANT player" },
+  { category: "management", year: "2026", title: "St. Clair College Esports", role: "Esports coordinator, varsity and academy teams" },
+  { category: "broadcast", year: "2026", title: "NACE VALORANT Grand Finals", role: "Observer (POV) and production assistant" },
+  { category: "broadcast", year: "2025", title: "St. Clair College Esports", role: "Replay operator, League of Legends" },
+  { category: "tournament", year: "2026", title: "Last Chance", role: "Online coordination, team manager contact" },
+  { category: "event organizer", year: "2026", title: "Fragadelphia Windsor", role: "Event staff" },
+  { category: "event organizer", year: "2026", title: "The Summoning", role: "Event staff" },
+  { category: "event organizer", year: "2026", title: "St. Clair summer camps", role: "Camp staff" },
+  { category: "more", year: "2026", title: "Full game localization", role: "Translation into Spanish and Portuguese" },
+  { category: "more", year: "2025", title: "No Sweat Blossom", role: "Professional VALORANT player" },
+  { category: "more", year: "Earlier", title: "VCT Game Changers LATAM", role: "Professional VALORANT player" },
 ];
 
 export const about = [

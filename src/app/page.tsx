@@ -1,4 +1,4 @@
-import { about, credits, education, photos, services, site, skillGroups } from "@/content/site";
+import { about, credits, education, workCategories, photos, services, site, skillGroups } from "@/content/site";
 import { ContactForm } from "@/components/contact-form";
 import { Credential, Polaroid, Scribble, Star, Tag, Tape, WordSearch } from "@/components/collage";
 
@@ -111,25 +111,38 @@ export default function Home() {
           <div className="mx-auto max-w-6xl px-6 py-20">
             <div className="flex flex-wrap items-center justify-between gap-10">
               <h2 id="work-h" className="grid justify-items-start gap-1">
-                <Tag className="text-[clamp(2rem,5vw,3.25rem)]">teams.</Tag>
-                <Tag className="text-[clamp(2rem,5vw,3.25rem)]">events.</Tag>
-                <Tag className="text-[clamp(2rem,5vw,3.25rem)]">broadcasts.</Tag>
+                <span className="font-serif text-7xl uppercase leading-none sm:text-8xl">Work</span>
+                <span className="font-marker text-3xl text-bg">teams, broadcasts, events</span>
               </h2>
               {headsetPhoto && <Polaroid photo={headsetPhoto} caption="on comms" className="-rotate-3 sm:mr-10" />}
             </div>
-            <svg aria-hidden="true" viewBox="0 0 1200 60" preserveAspectRatio="none" className="mt-10 h-10 w-full text-bg">
-              <path d="M0 10 C 300 60, 900 60, 1200 10" fill="none" stroke="currentColor" strokeWidth="4" />
-            </svg>
-            <ol className="-mt-4 grid grid-cols-2 gap-x-4 gap-y-8 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-5">
-              {credits.map((c, i) => (
-                <li key={i} className={`relative bg-white px-3 pt-7 pb-4 sm:px-4 sm:pb-5 shadow-[0_2px_0_rgb(22_17_19/0.08),0_12px_24px_-12px_rgb(22_17_19/0.35)] ${tilt[i % tilt.length]}`}>
-                  <Tape className="-top-3 left-1/2 -translate-x-1/2 -rotate-3 bg-blush/70" />
-                  <p className="font-marker text-xl leading-none text-bg">{c.year}</p>
-                  <h3 className="mt-2 font-serif text-xl leading-tight sm:text-2xl">{c.title}</h3>
-                  <p className="mt-2 text-sm text-fg-3">{c.role}</p>
-                </li>
-              ))}
-            </ol>
+            <div className="mt-12 grid gap-14">
+              {workCategories.map((cat) => {
+                const items = credits.filter((c) => c.category === cat);
+                if (!items.length) return null;
+                return (
+                  <div key={cat}>
+                    <h3 className="flex items-baseline gap-3">
+                      <Tag className="text-2xl sm:text-3xl">{cat}</Tag>
+                      <span className="font-marker text-2xl text-bg">{items.length}</span>
+                    </h3>
+                    <svg aria-hidden="true" viewBox="0 0 1200 60" preserveAspectRatio="none" className="mt-3 h-8 w-full text-bg">
+                      <path d="M0 10 C 300 60, 900 60, 1200 10" fill="none" stroke="currentColor" strokeWidth="4" />
+                    </svg>
+                    <ol className="-mt-3 grid grid-cols-2 gap-x-4 gap-y-8 sm:gap-x-6 lg:grid-cols-4">
+                      {items.map((c, i) => (
+                        <li key={c.title + c.role} className={`relative bg-white px-3 pt-7 pb-4 sm:px-4 sm:pb-5 shadow-[0_2px_0_rgb(22_17_19/0.08),0_12px_24px_-12px_rgb(22_17_19/0.35)] ${tilt[i % tilt.length]}`}>
+                          <Tape className="-top-3 left-1/2 -translate-x-1/2 -rotate-3 bg-blush/70" />
+                          <p className="font-marker text-xl leading-none text-bg">{c.year}</p>
+                          <h4 className="mt-2 font-serif text-xl leading-tight sm:text-2xl">{c.title}</h4>
+                          <p className="mt-2 text-sm text-fg-3">{c.role}</p>
+                        </li>
+                      ))}
+                    </ol>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </section>
 
