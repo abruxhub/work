@@ -18,6 +18,16 @@ export const site = {
   ],
 } as const;
 
+export const skills = [
+  "VALORANT",
+  "League of Legends",
+  "Team management",
+  "LAN events",
+  "Observer / POV",
+  "Replay operator",
+  "ES / PT localization",
+] as const;
+
 export const services = [
   {
     title: "Team coordination",
