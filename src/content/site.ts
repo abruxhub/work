@@ -205,6 +205,8 @@ export const cutouts = {
 // Three highlight cards (in the layout's "kind words" slot). From Abril's own LinkedIn posts.
 // When real quotes from colleagues come in, they can go here as testimonials instead.
 export const highlights = [
+  { photo: { src: "/photos/jersey.webp", alt: "Abril in a St. Clair Saints jersey" }, title: "St. Clair College Esports", text: "Coordinator for the Saints varsity and academy teams, and replay operator on League of Legends broadcasts." },
+  { photo: { src: "/work/creator-2.webp", alt: "Abril observing at a PC during the Creator Cup" }, title: "Creator Cup VALORANT", text: "POV observer for the 1000 Dreams Fund charity Creator Cup." },
   { photo: { src: "/work/nace-3.webp", alt: "Production desk at the NACE VALORANT Grand Finals" }, title: "NACE VALORANT Grand Finals", text: "POV observer and production assistant at one of the biggest North American collegiate LANs." },
   { photo: { src: "/work/tauceti-2.webp", alt: "Tau Ceti Cup scoreboard for Marathon" }, title: "Tau Ceti Cup for Bungie’s Marathon", text: "Referee and admin for the Spanish creator team: Rubius, TheGrefg and IlloJuan." },
   { photo: { src: "/work/relic.webp", alt: "Relic Arena key art" }, title: "Relic Arena", text: "Translated the whole game into Spanish and Portuguese. Out now on Steam." },
