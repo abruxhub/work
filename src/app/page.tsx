@@ -228,25 +228,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 9. FAQ */}
-        <section id="faq" aria-labelledby="faq-h" className="on-dark damask bg-oxblood">
-          <div className="mx-auto max-w-5xl px-6 py-20">
-            <h2 id="faq-h" className="text-center font-serif text-5xl">FAQ</h2>
-            <div className="mt-12 grid gap-x-12 sm:grid-cols-2">
-              {faqs.map((f) => (
-                <details key={f.q} className="group border-b border-line">
-                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 text-lg [&::-webkit-details-marker]:hidden">
-                    {f.q}
-                    <Plus aria-hidden="true" className="size-5 shrink-0 transition-transform group-open:rotate-45" strokeWidth={1.5} />
-                  </summary>
-                  <p className="pb-5 leading-relaxed text-fg-2">{f.a}</p>
-                </details>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* 10. CTA */}
+        {/* 9. CTA */}
         <section aria-labelledby="cta-h" className="grain relative overflow-hidden">
           <Star className="absolute top-14 left-[12%] hidden size-14 -rotate-12 md:block" />
           <Sparkle className="absolute right-[14%] bottom-16 hidden size-8 text-oxblood md:block" />
@@ -263,7 +245,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 11. Social photo row */}
+        {/* 10. Social photo row */}
         <section aria-label="Photos" className="grain">
           <div className="mx-auto max-w-6xl px-6 pb-16">
             <div className="flex items-center gap-4">
@@ -281,7 +263,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 12. Contact (the layout's signup block) */}
+        {/* 11. Contact (the layout's signup block) */}
         <section id="contact" aria-labelledby="contact-h" className="grain bg-parchment">
           <div className="mx-auto max-w-3xl px-6 py-20">
             <div className="text-center">
@@ -292,6 +274,23 @@ export default function Home() {
             <TornNote className="relative mt-10" inner="px-6 py-10 sm:px-10">
               <ContactForm />
             </TornNote>
+          </div>
+        </section>
+        {/* 12. FAQ (last) */}
+        <section id="faq" aria-labelledby="faq-h" className="on-dark damask bg-oxblood">
+          <div className="mx-auto max-w-5xl px-6 py-20">
+            <h2 id="faq-h" className="text-center font-serif text-5xl">FAQ</h2>
+            <div className="mt-12 grid gap-x-12 sm:grid-cols-2">
+              {faqs.map((f) => (
+                <details key={f.q} className="group border-b border-line">
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 text-lg [&::-webkit-details-marker]:hidden">
+                    {f.q}
+                    <Plus aria-hidden="true" className="size-5 shrink-0 transition-transform group-open:rotate-45" strokeWidth={1.5} />
+                  </summary>
+                  <p className="pb-5 leading-relaxed text-fg-2">{f.a}</p>
+                </details>
+              ))}
+            </div>
           </div>
         </section>
       </main>
