@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+/* One neutral ramp (cool graphite), one accent (Saints green). */
+@theme {
+  --font-sans: "Archivo Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, monospace;
+  --color-bg: #0e0f10;
+  --color-raised: #16181a;
+  --color-line: rgb(237 239 241 / 0.08);
+  --color-fg: #edeff1;
+  --color-fg-2: #a9afb5;
+  --color-fg-3: #757c83;
+  --color-accent: #7fd18b;
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+html {
+  background: var(--color-bg);
+  color: var(--color-fg);
+  color-scheme: dark;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+h1, h2, h3 { text-wrap: balance; }
+p { text-wrap: pretty; }
+
+[id] { scroll-margin-block-start: 80px; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
