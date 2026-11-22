@@ -1,4 +1,4 @@
-import { about, credits, photos, services, site, skills } from "@/content/site";
+import { about, credits, education, photos, services, site, skillGroups } from "@/content/site";
 import { ContactForm } from "@/components/contact-form";
 import { Credential, FilmStrip, Scribble, Star, Tag, Tape, WordSearch } from "@/components/collage";
 
@@ -29,6 +29,7 @@ export default function Home() {
             <li className="hidden sm:block"><a className="px-3 py-2 transition-colors hover:text-white" href="#offer">what i do</a></li>
             <li className="hidden sm:block"><a className="px-3 py-2 transition-colors hover:text-white" href="#work">work</a></li>
             <li className="hidden sm:block"><a className="px-3 py-2 transition-colors hover:text-white" href="#about">about</a></li>
+            <li className="hidden md:block"><a className="px-3 py-2 transition-colors hover:text-white" href="#skills">skills</a></li>
             <li><a className="ml-2 inline-block bg-ink px-3 py-2 font-extrabold text-white transition-opacity hover:opacity-85" href="#contact">contact</a></li>
           </ul>
         </nav>
@@ -79,11 +80,6 @@ export default function Home() {
               <div className="mt-6 grid gap-4 text-lg leading-relaxed text-fg-2">
                 {about.map((p) => <p key={p}>{p}</p>)}
               </div>
-              <ul className="mt-6 flex flex-wrap gap-2" aria-label="Skills">
-                {skills.map((s) => (
-                  <li key={s} className="rounded-full border-2 border-ink px-3 py-1 text-sm font-semibold">{s}</li>
-                ))}
-              </ul>
             </div>
             <h2 id="about-h" className="order-first -rotate-6 font-marker text-[clamp(5rem,13vw,9rem)] leading-[0.8] text-bg md:order-none">
               about<br />&nbsp;&nbsp;me
@@ -128,6 +124,53 @@ export default function Home() {
                   <p className="font-marker text-xl leading-none text-bg">{c.year}</p>
                   <h3 className="mt-2 font-serif text-xl leading-tight sm:text-2xl">{c.title}</h3>
                   <p className="mt-2 text-sm text-fg-3">{c.role}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
+        {/* Skills */}
+        <section id="skills" aria-labelledby="skills-h" className="halftone overflow-hidden">
+          <div className="relative mx-auto max-w-6xl px-6 py-20">
+            <div className="flex flex-wrap items-end gap-x-6 gap-y-2">
+              <h2 id="skills-h" className="font-serif text-7xl uppercase leading-none text-white sm:text-8xl">Skills</h2>
+              <p className="pb-2 font-marker text-3xl text-blush">what I bring to the team</p>
+            </div>
+            <Star className="absolute top-12 right-6 size-20 rotate-12 sm:size-28" />
+            <div className="mt-12 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+              {skillGroups.map((g) => (
+                <div key={g.title}>
+                  <h3><Tag className="text-2xl">{g.title}</Tag></h3>
+                  <ul className="mt-4 flex flex-wrap gap-2">
+                    {g.items.map((it) => (
+                      <li key={it} className="rounded-full border-2 border-white px-3.5 py-1.5 text-sm font-semibold text-white">{it}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Education */}
+        <section id="education" aria-labelledby="edu-h" className="paper overflow-hidden">
+          <div className="mx-auto grid max-w-6xl gap-12 px-6 py-20 lg:grid-cols-[auto_1fr] lg:items-center">
+            <h2 id="edu-h" className="-rotate-3 font-marker text-[clamp(4.5rem,11vw,8rem)] leading-[0.8] text-bg">
+              school<br />&nbsp;days
+            </h2>
+            <ol className="grid gap-10">
+              {education.map((e) => (
+                <li key={e.school} className="relative max-w-2xl -rotate-1 bg-white bg-[repeating-linear-gradient(180deg,transparent_0_31px,rgb(156_72_102/0.18)_31px_32px)] px-6 pt-10 pb-8 shadow-[0_12px_24px_-12px_rgb(22_17_19/0.4)] sm:px-10">
+                  <Tape className="-top-3 left-10 -rotate-6 bg-blush/70" />
+                  <span aria-hidden="true" className="absolute inset-y-0 left-4 w-px bg-bg/40 sm:left-6" />
+                  <div className="flex flex-wrap items-baseline justify-between gap-3">
+                    <p className="font-marker text-2xl leading-none text-bg">{e.years}</p>
+                    <Tag className="rotate-2 text-base">{e.note}</Tag>
+                  </div>
+                  <h3 className="mt-3 font-serif text-4xl leading-[1.05] sm:text-5xl">{e.program}</h3>
+                  <p className="mt-3 font-semibold">{e.credential} · {e.school}, {e.place}</p>
+                  <p className="mt-3 leading-relaxed text-fg-2">{e.detail}</p>
                 </li>
               ))}
             </ol>

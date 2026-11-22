@@ -18,14 +18,25 @@ export const site = {
   ],
 } as const;
 
-export const skills = [
-  "VALORANT",
-  "League of Legends",
-  "Team management",
-  "LAN events",
-  "Observer / POV",
-  "Replay operator",
-  "ES / PT localization",
+export const skillGroups = [
+  { title: "esports ops", items: ["Team and roster management", "Scheduling and match days", "Scrims and bootcamps", "Player and staff communication"] },
+  { title: "production", items: ["In-game observer (POV)", "Replay operator", "Production assistant", "Broadcast workflow"] },
+  { title: "events", items: ["LAN events", "Online tournament coordination", "Team manager liaison", "Summer camps"] },
+  { title: "games", items: ["VALORANT (ex-pro)", "League of Legends"] },
+  { title: "languages", items: ["Spanish", "English", "Portuguese", "Game localization ES / PT"] },
+] as const;
+
+// DRAFT: only the St. Clair diploma is known. Add earlier schooling if you want it shown.
+export const education = [
+  {
+    school: "St. Clair College",
+    place: "Windsor, Ontario",
+    program: "Esports Administration and Entrepreneurship",
+    credential: "Diploma",
+    years: "2025 – now",
+    note: "in progress",
+    detail: "Running teams, events and esports businesses. Joined the college events team in my first term and became esports coordinator in my second year.",
+  },
 ] as const;
 
 export const services = [
