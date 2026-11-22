@@ -1,25 +1,38 @@
 @import "tailwindcss";
 
-/* Editorial base: warm black, sepia cream, wine panel, one pink accent. */
+/* Collage: dusty pink pages, paper pages, black tags, cream type. */
 @theme {
   --font-sans: "Archivo Variable", ui-sans-serif, system-ui, sans-serif;
   --font-serif: "Instrument Serif", ui-serif, Georgia, serif;
+  --font-marker: "Caveat Brush", "Comic Sans MS", cursive;
   --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
-  --color-bg: #13100e;
-  --color-raised: #1c1714;
-  --color-line: rgb(236 228 214 / 0.14);
-  --color-fg: #ece4d6;
-  --color-fg-2: #bdb2a2;
-  --color-fg-3: #8f8577;
-  --color-wine: #561925;
-  --color-accent: #f2a7bd;
-  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --color-bg: #9c4866;
+  --color-raised: #8a3d58;
+  --color-line: rgb(255 246 240 / 0.45);
+  --color-fg: #fff6f0;
+  --color-fg-2: #fbe3ea;
+  --color-fg-3: #f3cdd9;
+  --color-ink: #161113;
+  --color-paper: #f7f2ed;
+  --color-blush: #f6b9cc;
+  --color-accent: #fff6f0;
+}
+
+/* Paper sections flip the palette, so shared components keep working. */
+.paper {
+  --color-fg: #161113;
+  --color-fg-2: #3d3236;
+  --color-fg-3: #6b5c62;
+  --color-line: rgb(22 17 19 / 0.25);
+  --color-accent: #9c4866;
+  --color-raised: #ffffff;
+  background: var(--color-paper);
+  color: var(--color-fg);
 }
 
 html {
   background: var(--color-bg);
   color: var(--color-fg);
-  color-scheme: dark;
   scroll-behavior: smooth;
 }
 
@@ -28,15 +41,11 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Film grain over everything, very faint. */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 60;
-  pointer-events: none;
-  opacity: 0.07;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+/* Halftone dots on the pink pages, like printed card stock. */
+.halftone {
+  background-color: var(--color-bg);
+  background-image: radial-gradient(rgb(255 255 255 / 0.09) 1px, transparent 1.2px);
+  background-size: 6px 6px;
 }
 
 :focus-visible {
@@ -48,13 +57,7 @@ body::before {
 h1, h2, h3 { text-wrap: balance; }
 p { text-wrap: pretty; }
 
-[id] { scroll-margin-block-start: 80px; }
-
-@utility caps {
-  font-family: var(--font-mono);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
+[id] { scroll-margin-block-start: 72px; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

@@ -66,3 +66,8 @@ export const about = [
   "I'm Argentine and German, and I moved to Canada in 2025 to study Esports Administration and Entrepreneurship at St. Clair College. I joined the events team in my first term and became esports coordinator at the start of my second year.",
   "Playing at a pro level taught me what teams actually need from the people around them. I care about the scene growing, in Canada and in Latin America, and I like being the one who makes the day run on time.",
 ] as const;
+
+// Drop photos into /public/photos and list them here. The hero badge uses the
+// first one, the film strip uses the rest. With none, the collage still works.
+export type Photo = { src: string; alt: string };
+export const photos: Photo[] = [];

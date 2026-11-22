@@ -1,6 +1,6 @@
-import { about, credits, services, site, skills } from "@/content/site";
+import { about, credits, photos, services, site, skills } from "@/content/site";
 import { ContactForm } from "@/components/contact-form";
-import { Star, Tag } from "@/components/star";
+import { Credential, FilmStrip, Scribble, Star, Tag, Tape, WordSearch } from "@/components/collage";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -13,153 +13,162 @@ const jsonLd = {
   sameAs: site.links.map((l) => l.href),
 };
 
-function SectionHead({ n, id, children }: { n: string; id: string; children: React.ReactNode }) {
-  return (
-    <div className="flex items-end justify-between gap-6 border-b border-line pb-4">
-      <h2 id={id} className="font-serif text-5xl italic leading-none sm:text-6xl">{children}</h2>
-      <span className="caps text-sm text-fg-3">{n}</span>
-    </div>
-  );
-}
+const tilt = ["-rotate-2", "rotate-1", "-rotate-1", "rotate-2", "rotate-0"];
 
 export default function Home() {
+  const [heroPhoto, ...stripPhotos] = photos;
   return (
     <>
-      <header className="sticky top-0 z-40 border-b border-line bg-bg/90 backdrop-blur">
+      <header className="sticky top-0 z-40 bg-bg/95 backdrop-blur">
         <nav aria-label="Main" className="mx-auto flex h-14 max-w-6xl items-center justify-between px-6">
-          <a href="#top" className="flex items-center gap-2 font-sans font-extrabold [font-stretch:125%]">
-            <Star className="size-5 text-accent" />
+          <a href="#top" className="flex items-center gap-2 font-marker text-2xl leading-none text-white">
+            <Star className="size-6" />
             {site.handle}
           </a>
-          <ul className="caps flex items-center gap-1 text-xs text-fg-2">
-            <li className="hidden sm:block"><a className="px-3 py-2 transition-colors hover:text-fg" href="#offer">Services</a></li>
-            <li className="hidden sm:block"><a className="px-3 py-2 transition-colors hover:text-fg" href="#work">Work</a></li>
-            <li className="hidden sm:block"><a className="px-3 py-2 transition-colors hover:text-fg" href="#about">About</a></li>
-            <li><a className="ml-2 inline-block bg-fg px-3 py-2 text-bg transition-opacity hover:opacity-85" href="#contact">Contact</a></li>
+          <ul className="flex items-center gap-1 text-sm font-semibold lowercase text-fg-2">
+            <li className="hidden sm:block"><a className="px-3 py-2 transition-colors hover:text-white" href="#offer">what i do</a></li>
+            <li className="hidden sm:block"><a className="px-3 py-2 transition-colors hover:text-white" href="#work">work</a></li>
+            <li className="hidden sm:block"><a className="px-3 py-2 transition-colors hover:text-white" href="#about">about</a></li>
+            <li><a className="ml-2 inline-block bg-ink px-3 py-2 font-extrabold text-white transition-opacity hover:opacity-85" href="#contact">contact</a></li>
           </ul>
         </nav>
       </header>
 
-      <main id="main" className="mx-auto max-w-6xl px-6">
+      <main id="main">
         {/* Hero */}
-        <section id="top" className="pt-10 pb-20 sm:pt-14">
-          <div className="caps flex flex-wrap justify-between gap-4 text-xs leading-relaxed text-fg-3">
-            <p className="max-w-56">{site.role}<br />St. Clair College Esports</p>
-            <p className="sm:text-right">{site.location}<br />ES · EN · PT</p>
-          </div>
-
-          <div className="relative mt-12 sm:mt-16">
-            <h1 className="leading-[0.85]">
-              <span className="block font-serif text-[clamp(5rem,19vw,15rem)] italic">Abril</span>
-              <span className="block font-sans text-[clamp(2.4rem,9.4vw,7.5rem)] font-extrabold uppercase tracking-tight [font-stretch:112%]">
-                Molins Sandner
-              </span>
-            </h1>
-            <Star className="absolute top-0 right-[4%] size-20 rotate-12 text-accent sm:right-auto sm:left-[min(56vw,44rem)] sm:size-28" />
-            <Tag className="absolute top-[30%] right-0 -rotate-3 sm:right-auto sm:left-[min(60vw,47rem)] sm:text-base">ex. pro VALORANT</Tag>
-          </div>
-
-          <div className="mt-14 grid gap-10 lg:grid-cols-[1.5fr_1fr] lg:items-end">
-            <div>
-              <p className="caps text-lg leading-snug text-fg sm:text-2xl">
-                <span className="inline-block w-12 sm:w-28" />
-                {site.headline}
-              </p>
-              <p className="mt-6 max-w-xl leading-relaxed text-fg-2 sm:ml-28">{site.intro}</p>
+        <section id="top" className="halftone overflow-hidden">
+          <div className="mx-auto max-w-6xl px-6 pt-6 pb-20">
+            <div className="flex flex-wrap justify-between gap-x-6 gap-y-1 border border-line px-4 py-1.5 text-sm text-fg-2">
+              <span>@abruxgg</span>
+              <span className="hidden sm:inline">{site.name.toLowerCase()}</span>
+              <span>coordinator, producer, translator</span>
             </div>
-            <div className="grid gap-6">
-              <ul className="flex flex-wrap gap-2" aria-label="Skills">
-                {skills.map((s) => (
-                  <li key={s} className="rounded-full border border-line px-3 py-1.5 text-sm text-fg-2">{s}</li>
-                ))}
-              </ul>
-              <div className="caps flex flex-wrap gap-3 text-sm">
-                <a href="#contact" className="bg-fg px-5 py-3 text-bg transition-[opacity,transform] hover:opacity-85 active:scale-[0.98]">Work with me</a>
-                <a href="#work" className="border border-line px-5 py-3 text-fg-2 transition-colors hover:text-fg">See my work ↘</a>
+
+            <div className="mt-16 grid items-center gap-16 lg:mt-12 lg:grid-cols-[1fr_1.25fr]">
+              <div className="relative order-2 pt-36 lg:order-1">
+                <Credential name={site.name} handle={site.handle} role="Esports coordinator" photo={heroPhoto} />
+                <Star className="absolute -bottom-14 left-0 size-24 -rotate-12 sm:size-28" />
+              </div>
+
+              <div className="order-1 lg:order-2">
+                <h1>
+                  <Tag className="text-[clamp(2rem,6vw,3.75rem)]">meet</Tag>
+                  <span className="mt-1 block font-serif text-[clamp(5.5rem,17vw,12rem)] uppercase leading-[0.85] text-white">Abril</span>
+                  <span className="sr-only">{site.name}, {site.role}</span>
+                </h1>
+                <Scribble className="mt-2 w-[min(100%,34rem)] text-white" />
+                <p className="mt-6 inline-flex items-center gap-2 rounded-[50%] border-2 border-white px-5 py-3 text-base font-bold whitespace-nowrap lowercase text-white sm:px-7 sm:text-xl">
+                  <span aria-hidden="true">*</span> esports coordinator & producer
+                </p>
+                <p className="mt-8 max-w-lg text-lg leading-relaxed text-fg-2">{site.intro}</p>
+                <div className="mt-8 flex flex-wrap items-center gap-4">
+                  <a href="#contact" className="bg-ink px-6 py-3 font-extrabold lowercase text-white transition-[opacity,transform] hover:opacity-85 active:scale-[0.98]">work with me</a>
+                  <a href="#work" className="font-marker text-2xl text-white underline decoration-2 underline-offset-4 transition-opacity hover:opacity-80">see my work →</a>
+                </div>
+                <p aria-hidden="true" className="mt-10 hidden -rotate-6 text-right font-marker text-5xl text-white/80 lg:block">abruX</p>
               </div>
             </div>
           </div>
-        </section>
-
-        {/* Services */}
-        <section aria-labelledby="offer" className="py-16">
-          <SectionHead n="01" id="offer">What I do</SectionHead>
-          <ol className="mt-10 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
-            {services.map((s, i) => (
-              <li key={s.title} className="border-t border-fg/40 pt-4">
-                <p className="caps text-sm text-fg-3">0{i + 1}</p>
-                <h3 className="caps mt-6 text-base font-medium">{s.title}</h3>
-                <p className="mt-3 text-[0.95rem] leading-relaxed text-fg-2">{s.body}</p>
-              </li>
-            ))}
-          </ol>
-        </section>
-
-        {/* Work */}
-        <section id="work" aria-labelledby="work-h" className="py-16">
-          <SectionHead n="02" id="work-h">Work</SectionHead>
-          <ol className="mt-4">
-            {credits.map((c, i) => (
-              <li key={i} className="grid grid-cols-[4.5rem_1fr] items-baseline gap-x-4 gap-y-1 border-b border-line py-5 transition-colors hover:bg-raised sm:grid-cols-[6rem_1.2fr_1fr] sm:px-2">
-                <span className="caps text-sm tabular-nums text-fg-3">{c.year}</span>
-                <span className="font-serif text-3xl leading-tight sm:text-4xl">{c.title}</span>
-                <span className="caps col-start-2 text-xs leading-relaxed text-fg-2 sm:col-start-3 sm:text-sm">{c.role}</span>
-              </li>
-            ))}
-          </ol>
         </section>
 
         {/* About */}
-        <section id="about" aria-labelledby="about-h" className="py-16">
-          <div className="relative overflow-hidden rounded-3xl bg-wine px-6 py-12 sm:px-12 sm:py-16">
-            <Star className="absolute -top-14 -right-10 size-32 -rotate-12 text-accent sm:size-44" />
-            <div className="relative grid gap-10 lg:grid-cols-[1fr_1.3fr]">
-              <div>
-                <Tag>hello!</Tag>
-                <h2 id="about-h" className="mt-5 leading-[0.9]">
-                  <span className="block font-sans text-5xl font-extrabold uppercase [font-stretch:112%] sm:text-6xl">About</span>
-                  <span className="block font-serif text-6xl italic sm:text-7xl">me</span>
-                </h2>
-                <dl className="caps mt-10 grid gap-3 text-sm">
-                  <div className="flex gap-3"><dt className="text-fg/60">Based in</dt><dd>{site.location}</dd></div>
-                  <div className="flex gap-3"><dt className="text-fg/60">Speaks</dt><dd>ES · EN · PT</dd></div>
-                  <div className="flex gap-3"><dt className="text-fg/60">Games</dt><dd>VALORANT · LoL</dd></div>
-                </dl>
-              </div>
-              <div className="grid content-start gap-5 text-lg leading-relaxed text-fg/90 lg:pt-14">
+        <section id="about" aria-labelledby="about-h" className="paper overflow-hidden">
+          <div className="mx-auto grid max-w-6xl gap-12 px-6 py-20 md:grid-cols-[1fr_auto_1fr] md:items-center">
+            <div>
+              <Tag className="text-4xl">hello!</Tag>
+              <div className="mt-6 grid gap-4 text-lg leading-relaxed text-fg-2">
                 {about.map((p) => <p key={p}>{p}</p>)}
               </div>
+              <ul className="mt-6 flex flex-wrap gap-2" aria-label="Skills">
+                {skills.map((s) => (
+                  <li key={s} className="rounded-full border-2 border-ink px-3 py-1 text-sm font-semibold">{s}</li>
+                ))}
+              </ul>
             </div>
+            <h2 id="about-h" className="order-first -rotate-6 font-marker text-[clamp(5rem,13vw,9rem)] leading-[0.8] text-bg md:order-none">
+              about<br />&nbsp;&nbsp;me
+            </h2>
+            <FilmStrip photos={stripPhotos} words={["LAN", "POV", "GG", "ES/PT"]} className="hidden justify-self-center md:block" />
+          </div>
+        </section>
+
+        {/* What I do */}
+        <section id="offer" aria-labelledby="offer-h" className="halftone overflow-hidden">
+          <div className="mx-auto grid max-w-6xl gap-10 px-6 py-20 lg:grid-cols-[auto_1fr_1fr] lg:items-center">
+            <h2 id="offer-h" className="font-serif text-7xl uppercase leading-none text-blush lg:[writing-mode:vertical-rl] lg:rotate-180 lg:text-8xl">
+              What I do
+            </h2>
+            <WordSearch className="justify-self-start" />
+            <ol className="grid gap-5">
+              {services.map((s) => (
+                <li key={s.title}>
+                  <h3 className="font-marker text-3xl leading-none text-white">{s.title.toLowerCase()}</h3>
+                  <p className="mt-1 text-fg-2">{s.body}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
+        {/* Work */}
+        <section id="work" aria-labelledby="work-h" className="paper overflow-hidden">
+          <div className="mx-auto max-w-6xl px-6 py-20">
+            <h2 id="work-h" className="grid justify-items-start gap-1">
+              <Tag className="text-[clamp(2rem,5vw,3.25rem)]">teams.</Tag>
+              <Tag className="text-[clamp(2rem,5vw,3.25rem)]">events.</Tag>
+              <Tag className="text-[clamp(2rem,5vw,3.25rem)]">broadcasts.</Tag>
+            </h2>
+            <svg aria-hidden="true" viewBox="0 0 1200 60" preserveAspectRatio="none" className="mt-10 h-10 w-full text-bg">
+              <path d="M0 10 C 300 60, 900 60, 1200 10" fill="none" stroke="currentColor" strokeWidth="4" />
+            </svg>
+            <ol className="-mt-4 grid grid-cols-2 gap-x-4 gap-y-8 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-5">
+              {credits.map((c, i) => (
+                <li key={i} className={`relative bg-white px-3 pt-7 pb-4 sm:px-4 sm:pb-5 shadow-[0_2px_0_rgb(22_17_19/0.08),0_12px_24px_-12px_rgb(22_17_19/0.35)] ${tilt[i % tilt.length]}`}>
+                  <Tape className="-top-3 left-1/2 -translate-x-1/2 -rotate-3 bg-blush/70" />
+                  <p className="font-marker text-xl leading-none text-bg">{c.year}</p>
+                  <h3 className="mt-2 font-serif text-xl leading-tight sm:text-2xl">{c.title}</h3>
+                  <p className="mt-2 text-sm text-fg-3">{c.role}</p>
+                </li>
+              ))}
+            </ol>
           </div>
         </section>
 
         {/* Contact */}
-        <section id="contact" aria-labelledby="contact-h" className="py-16">
-          <SectionHead n="03" id="contact-h">Let’s talk</SectionHead>
-          <div className="mt-10 grid gap-12 lg:grid-cols-[1fr_1.5fr]">
+        <section id="contact" aria-labelledby="contact-h" className="halftone overflow-hidden">
+          <div className="relative mx-auto grid max-w-6xl gap-12 px-6 py-20 lg:grid-cols-[1fr_1.4fr_auto] lg:items-center">
             <div>
-              <p className="caps text-base leading-snug">
+              <Tag className="text-3xl">let’s work together</Tag>
+              <p className="mt-6 text-lg leading-relaxed text-fg-2">
                 Running a team, an event or a broadcast, or need something translated? Tell me what you have in mind.
               </p>
-              <ul className="caps mt-8 grid gap-2 text-sm">
+              <ul className="mt-6 flex flex-wrap gap-3">
                 {site.links.map((l) => (
                   <li key={l.href}>
-                    <a href={l.href} rel="me noopener" target="_blank" className="group inline-flex items-center gap-2 py-1 text-fg-2 transition-colors hover:text-fg">
-                      {l.label} <span aria-hidden="true" className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">↗</span>
+                    <a href={l.href} rel="me noopener" target="_blank" className="inline-block rounded-full border-2 border-white px-4 py-1.5 font-bold lowercase text-white transition-colors hover:bg-white hover:text-bg">
+                      {l.label}
                     </a>
                   </li>
                 ))}
               </ul>
             </div>
-            <ContactForm />
+            <div className="paper relative rotate-1 p-6 shadow-[10px_12px_0_rgb(22_17_19/0.3)] sm:p-8">
+              <Tape className="-top-3 left-8 -rotate-6" />
+              <Tape className="-top-3 right-8 rotate-6" />
+              <ContactForm />
+            </div>
+            <h2 id="contact-h" className="font-serif text-7xl uppercase leading-none text-blush lg:[writing-mode:vertical-rl] lg:text-8xl">
+              Say hi
+            </h2>
+            <Star className="absolute right-[30%] -bottom-8 hidden size-28 rotate-12 lg:block" />
           </div>
         </section>
       </main>
 
-      <footer className="border-t border-line">
-        <div className="caps mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-6 py-8 text-xs text-fg-3">
+      <footer className="bg-ink">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-6 py-8 text-sm text-white/70">
           <p>© {new Date().getFullYear()} {site.name}</p>
-          <a href="/privacy" className="transition-colors hover:text-fg">Privacy</a>
+          <a href="/privacy" className="transition-colors hover:text-white">privacy</a>
         </div>
       </footer>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
