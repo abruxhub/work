@@ -102,7 +102,7 @@ export function Phone({ photo, label, className = "" }: { photo: Photo; label: s
 export function Seal({ className = "" }: C) {
   return (
     <svg viewBox="0 0 80 80" aria-hidden="true" className={className}>
-      <circle cx="40" cy="40" r="36" fill="#6b1d27" />
+      <circle cx="40" cy="40" r="36" fill="#7a5236" />
       <circle cx="40" cy="40" r="29" fill="none" stroke="#efe6d4" strokeOpacity=".6" strokeDasharray="2 3" />
       <text x="40" y="47" textAnchor="middle" fontFamily="Instrument Serif, serif" fontStyle="italic" fontSize="22" fill="#efe6d4">aX</text>
     </svg>
@@ -112,7 +112,7 @@ export function Seal({ className = "" }: C) {
 /* ── Collage pieces, in the cream / oxblood / brown palette ── */
 
 export function Star({ className = "", tone = "cream" }: C & { tone?: "cream" | "oxblood" }) {
-  const fill = tone === "cream" ? "#f6efe2" : "#6b1d27";
+  const fill = tone === "cream" ? "#f6efe2" : "#7a5236";
   return (
     <svg viewBox="0 0 100 100" aria-hidden="true" className={className}>
       <path d="M51 4 63 37 97 38 70 59 80 94 50 73 19 95 30 59 3 38 38 36Z" fill={fill} stroke="#24150f" strokeWidth="3.5" strokeLinejoin="round" />
