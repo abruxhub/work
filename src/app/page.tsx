@@ -1,7 +1,7 @@
 import { ClipboardList, Gamepad2, Languages, Users } from "lucide-react";
 import { about, brands, credits, cutouts, education, photos, services, site, skillGroups, stats, workCategories } from "@/content/site";
 import { ContactForm } from "@/components/contact-form";
-import { Arrow, Cutout, FilmStrip, Label, Loop, Phone, PixelReveal, Print, ScriptHead, Scribble, Seal, Sparkle, Star, Tape, TornNote, Zigzag } from "@/components/vintage";
+import { Arrow, Cutout, FilmStrip, Label, Loop, Phone, Print, ScriptHead, Scribble, Seal, Sparkle, Star, Tape, TornNote, Zigzag } from "@/components/vintage";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -50,7 +50,7 @@ function WorkEntry({ c, flip }: { c: (typeof credits)[number]; flip: boolean }) 
 }
 
 export default function Home() {
-  const [, , headsetPhoto, jerseyPhoto] = photos;
+  const [, , headsetPhoto, jerseyPhoto, portraitPhoto] = photos;
   return (
     <>
       <header className="sticky top-0 z-40 border-b border-line bg-cream/95 backdrop-blur">
@@ -83,10 +83,18 @@ export default function Home() {
               <Arrow className="absolute top-[58%] -left-[38%] hidden w-24 text-oxblood md:block" />
               <Star className="absolute -right-8 bottom-[34%] size-14 rotate-12 sm:size-16" />
             </div>
-            <h1 className="relative z-20 -mt-[min(11vw,5.5rem)] font-serif text-[clamp(2.8rem,9vw,7rem)] italic leading-[0.9] text-oxblood [text-shadow:0_0_22px_#efe6d4,0_0_6px_#efe6d4,0_0_2px_#efe6d4]">
-              Abril <span className="whitespace-nowrap">Molins Sandner</span>
-              <span className="sr-only">, {site.role}</span>
-            </h1>
+            <div className="relative z-20 -mt-[min(12vw,6rem)] flex flex-col items-center">
+              <h1 className="inline-flex flex-col items-start">
+                <span className="relative z-10 -mb-2 -ml-3 -rotate-3 bg-espresso px-4 pt-1 pb-2 font-sans text-[clamp(1.6rem,4.5vw,2.75rem)] font-extrabold lowercase leading-none tracking-tight text-cream shadow-md">meet</span>
+                <span className="font-serif text-[clamp(5rem,15vw,11rem)] uppercase leading-[0.85] text-oxblood [text-shadow:0_0_22px_#efe6d4,0_0_6px_#efe6d4,0_0_2px_#efe6d4]">Abril</span>
+                <span className="sr-only"> Molins Sandner, {site.role}</span>
+              </h1>
+              <Scribble className="-mt-1 w-[min(80vw,26rem)] text-oxblood" />
+              <p className="relative mt-5 inline-block px-8 py-3 font-sans text-sm font-bold lowercase tracking-wide text-espresso sm:text-base">
+                <Loop className="absolute inset-0 size-full text-oxblood" />
+                ✱ coordinator, producer, translator
+              </p>
+            </div>
 
             <div className="mt-14 grid gap-10 text-left md:grid-cols-[1fr_1.3fr_auto] md:items-end">
               <p className="font-display text-4xl uppercase leading-[0.95] text-espresso sm:text-5xl">
@@ -163,12 +171,12 @@ export default function Home() {
                 </dl>
               </TornNote>
             </div>
-            <div className="relative mx-auto w-full max-w-md pb-16">
-              {jerseyPhoto && <PixelReveal photo={jerseyPhoto} className="ml-auto w-[78%] rotate-2 shadow-[0_24px_40px_-18px_rgb(0_0_0/0.7)]" />}
-              <Cutout photo={cutouts.portrait} className="absolute -bottom-2 -left-2 w-[58%] -rotate-3" />
-              <p aria-hidden="true" className="absolute right-0 -bottom-2 rotate-[-4deg] font-marker text-3xl text-cream">that’s me!</p>
-              <Arrow className="absolute right-[26%] bottom-6 w-16 -scale-x-100 rotate-12 text-cream" />
-              <Star className="absolute -top-6 left-[14%] size-14 -rotate-12" />
+            <div className="relative mx-auto grid w-full max-w-md grid-cols-2 items-start gap-5 pb-14">
+              {portraitPhoto && <Print photo={portraitPhoto} caption="hi!" className="-rotate-3" />}
+              {jerseyPhoto && <Print photo={jerseyPhoto} caption="game day" className="mt-14 rotate-3" />}
+              <p aria-hidden="true" className="absolute right-2 -bottom-1 rotate-[-4deg] font-marker text-3xl text-cream">that’s me!</p>
+              <Star className="absolute -top-8 left-[40%] size-14 -rotate-12" />
+              <Sparkle className="absolute bottom-10 left-2 size-7 text-cream/80" />
             </div>
           </div>
         </section>
