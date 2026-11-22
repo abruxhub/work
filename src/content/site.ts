@@ -81,4 +81,10 @@ export const about = [
 // Drop photos into /public/photos and list them here. The hero badge uses the
 // first one, the film strip uses the rest. With none, the collage still works.
 export type Photo = { src: string; alt: string };
-export const photos: Photo[] = [];
+export const photos: Photo[] = [
+  { src: "/photos/badge-saints.webp", alt: "Abril in a green St. Clair Saints jersey, framing her face with her hands" },
+  { src: "/photos/flag.webp", alt: "Abril in a Saints jersey holding the Argentina flag" },
+  { src: "/photos/headset.webp", alt: "Abril at her desk wearing a headset" },
+  { src: "/photos/jersey.webp", alt: "Abril in a St. Clair Saints jersey" },
+  { src: "/photos/portrait.webp", alt: "Abril with arms crossed against a plain wall" },
+];

@@ -84,7 +84,7 @@ export default function Home() {
             <h2 id="about-h" className="order-first -rotate-6 font-marker text-[clamp(5rem,13vw,9rem)] leading-[0.8] text-bg md:order-none">
               about<br />&nbsp;&nbsp;me
             </h2>
-            <FilmStrip photos={stripPhotos} words={["LAN", "POV", "GG", "ES/PT"]} className="hidden justify-self-center md:block" />
+            <FilmStrip photos={stripPhotos} words={["LAN", "POV", "GG", "ES/PT"]} className="justify-self-center" />
           </div>
         </section>
 

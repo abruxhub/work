@@ -47,7 +47,7 @@ export function Credential({ name, handle, role, photo }: { name: string; handle
         <div className="mt-3 aspect-[4/5] overflow-hidden rounded-lg bg-bg">
           {photo ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={photo.src} alt={photo.alt} className="size-full object-cover grayscale contrast-125" />
+            <img src={photo.src} alt={photo.alt} className="size-full object-cover object-top" />
           ) : (
             <div aria-hidden="true" className="halftone relative grid size-full place-items-center">
               <span className="font-serif text-[7.5rem] leading-none text-white">aX</span>
@@ -69,7 +69,7 @@ export function FilmStrip({ photos, words, className = "" }: { photos: Photo[]; 
   const frames = photos.length ? photos.map((p) => ({ p, w: "" })) : words.map((w) => ({ p: undefined as Photo | undefined, w }));
   return (
     <div aria-hidden={photos.length ? undefined : true}
-      className={`relative w-36 rotate-2 bg-ink px-5 py-4 shadow-lg before:absolute before:inset-y-2 before:left-1.5 before:w-2 before:bg-[repeating-linear-gradient(180deg,#f7f2ed_0_6px,transparent_6px_14px)] after:absolute after:inset-y-2 after:right-1.5 after:w-2 after:bg-[repeating-linear-gradient(180deg,#f7f2ed_0_6px,transparent_6px_14px)] ${className}`}>
+      className={`relative w-44 rotate-2 bg-ink px-5 py-4 shadow-lg before:absolute before:inset-y-2 before:left-1.5 before:w-2 before:bg-[repeating-linear-gradient(180deg,#f7f2ed_0_6px,transparent_6px_14px)] after:absolute after:inset-y-2 after:right-1.5 after:w-2 after:bg-[repeating-linear-gradient(180deg,#f7f2ed_0_6px,transparent_6px_14px)] ${className}`}>
       <ul className="grid gap-3">
         {frames.map(({ p, w }, i) => (
           <li key={i} className="grid aspect-square place-items-center overflow-hidden bg-paper">
