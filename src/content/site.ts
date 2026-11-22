@@ -42,18 +42,22 @@ export const education = [
 export const services = [
   {
     title: "Team coordination",
+    items: ["Rosters and scheduling", "Scrims and bootcamps", "Match-day ops", "Player and staff comms"],
     body: "Schedules, rosters, scrims and match days for college teams. I'm the person players and staff talk to when something needs sorting out.",
   },
   {
     title: "Event production",
+    items: ["Run of show", "Bracket logistics", "Team manager liaison", "On-site staff"],
     body: "Planning and running LAN and online events, from bracket logistics to being the contact between team managers and staff.",
   },
   {
     title: "Observing and replays",
+    items: ["In-game observer (POV)", "Replay operator", "Production assistant", "VALORANT and LoL"],
     body: "In-game observer (POV) and replay operator for VALORANT and League of Legends broadcasts.",
   },
   {
     title: "Localization",
+    items: ["Spanish translation", "Portuguese translation", "Esports copy", "Full-game localization"],
     body: "Game and esports content translated into Spanish and Portuguese, by someone who actually plays.",
   },
 ] as const;
@@ -80,6 +84,14 @@ export const credits: Credit[] = [
 export const about = [
   "I'm Argentine and German, and I moved to Canada in 2025 to study Esports Administration and Entrepreneurship at St. Clair College. I joined the events team in my first term and became esports coordinator at the start of my second year.",
   "Playing at a pro level taught me what teams actually need from the people around them. I care about the scene growing, in Canada and in Latin America, and I like being the one who makes the day run on time.",
+] as const;
+
+// Public numbers as of Nov 2026. Update when they change.
+export const stats = [
+  { icon: "users", value: "1.6K", label: "followers on X" },
+  { icon: "languages", value: "3", label: "languages, ES · EN · PT" },
+  { icon: "clipboard", value: `${credits.length}`, label: "credits on this page" },
+  { icon: "gamepad", value: "2", label: "games, played and broadcast" },
 ] as const;
 
 // Drop photos into /public/photos and list them here. The hero badge uses the
