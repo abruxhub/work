@@ -1,7 +1,7 @@
 import { ClipboardList, Gamepad2, Languages, Users } from "lucide-react";
 import { about, brands, credits, cutouts, education, photos, services, site, skillGroups, stats, workCategories } from "@/content/site";
 import { ContactForm } from "@/components/contact-form";
-import { Arrow, Cutout, FilmStrip, Label, Loop, Phone, Print, ScriptHead, Scribble, Seal, Sparkle, Star, Tape, TornNote, Zigzag } from "@/components/vintage";
+import { Arrow, Credential, Cutout, FilmStrip, Label, Loop, Phone, Print, ScriptHead, Scribble, Seal, Sparkle, Star, Tape, TornNote, Zigzag } from "@/components/vintage";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -69,51 +69,42 @@ export default function Home() {
       <main id="main">
         {/* ── Hero ── */}
         <section id="top" className="grain relative overflow-hidden">
-          <Star className="absolute top-[44%] left-[4%] size-12 -rotate-12 sm:top-24 sm:size-20" />
-          <Star tone="oxblood" className="absolute top-[34%] left-[12%] hidden size-10 rotate-12 md:block" />
-          <Sparkle className="absolute top-[40%] right-[7%] size-8 text-oxblood sm:size-12" />
-          <Sparkle className="absolute top-[18%] right-[9%] hidden size-6 text-brown md:block" />
-          <div className="mx-auto max-w-6xl px-6 pt-10 pb-24 text-center">
-            <h1 className="relative mx-auto inline-flex flex-col items-start">
-              <span className="relative z-20 -mb-3 -ml-2 -rotate-3 bg-espresso px-5 pt-1 pb-2.5 font-sans text-[clamp(2rem,6vw,4.25rem)] font-extrabold lowercase leading-none tracking-tight text-cream shadow-md sm:-ml-6">meet</span>
-              <span className="font-serif text-[clamp(7rem,30vw,22rem)] uppercase leading-[0.8] text-oxblood">Abril</span>
-              <span className="sr-only"> Molins Sandner, {site.role}</span>
-            </h1>
-            <div className="relative z-10 mx-auto -mt-[min(5vw,3.5rem)] w-[min(70vw,21rem)]">
-              <Cutout photo={cutouts.hands} priority className="w-full" />
-              <p aria-hidden="true" className="absolute top-[50%] -left-[78%] hidden -rotate-6 font-marker text-4xl text-oxblood md:block">hi, I’m abruX!</p>
-              <Arrow className="absolute top-[58%] -left-[38%] hidden w-24 text-oxblood md:block" />
-              <Star className="absolute -right-8 bottom-[34%] size-14 rotate-12 sm:size-16" />
+          <Star className="absolute top-10 right-[6%] size-12 rotate-12 sm:size-16" />
+          <Star tone="oxblood" className="absolute top-[46%] left-[3%] hidden size-10 -rotate-12 lg:block" />
+          <Sparkle className="absolute top-[34%] right-[12%] hidden size-8 text-oxblood lg:block" />
+          <Sparkle className="absolute bottom-24 left-[38%] hidden size-6 text-brown lg:block" />
+          <div className="mx-auto grid max-w-6xl items-center gap-16 px-6 pt-40 pb-28 lg:grid-cols-[auto_1fr] lg:gap-20 lg:pt-44">
+            <div className="relative justify-self-center">
+              {photos[0] && <Credential name={site.name} handle={site.handle} role={site.role} photo={photos[0]} className="-rotate-6" />}
+              <Star className="absolute -bottom-8 -left-10 size-20 -rotate-12" />
             </div>
-            <div className="relative z-20 -mt-6 flex flex-col items-center">
-              <Scribble className="w-[min(80vw,28rem)] text-oxblood" />
-              <p className="relative mt-5 inline-block px-8 py-3 font-sans text-sm font-bold lowercase tracking-wide text-espresso sm:text-base">
+            <div className="relative">
+              <h1 className="inline-flex flex-col items-start">
+                <span className="relative z-10 -mb-3 -rotate-2 bg-espresso px-4 pt-1 pb-2 font-sans text-[clamp(2rem,5vw,3.5rem)] font-extrabold lowercase leading-none tracking-tight text-cream shadow-md">meet</span>
+                <span className="font-serif text-[clamp(6rem,16vw,11.5rem)] uppercase leading-[0.85] text-oxblood">Abril</span>
+                <span className="sr-only"> Molins Sandner, {site.role}</span>
+              </h1>
+              <Scribble className="-mt-1 block w-[min(85vw,30rem)] text-oxblood" />
+              <p className="relative mt-6 inline-block px-8 py-3 font-sans text-sm font-bold lowercase tracking-wide text-espresso sm:text-base">
                 <Loop className="absolute inset-0 size-full text-oxblood" />
-                ✱ coordinator, producer, translator
+                ✱ esports coordinator & producer
               </p>
-            </div>
-
-            <div className="mt-14 grid gap-10 text-left md:grid-cols-[1fr_1.3fr_auto] md:items-end">
-              <p className="font-display text-4xl uppercase leading-[0.95] text-espresso sm:text-5xl">
-                Esports<br />coordinator<br /><span className="relative text-oxblood">& producer<Scribble className="absolute -bottom-3 left-0 w-full text-oxblood" /></span>
-              </p>
-              <div>
-                <p className="leading-relaxed text-fg-2">{site.intro}</p>
-                <div className="mt-6 flex flex-wrap items-center gap-5">
-                  <a href="#contact" className="bg-oxblood px-6 py-3 text-xs font-bold uppercase tracking-[0.18em] text-cream transition-opacity hover:opacity-90">Work with me</a>
-                  <a href="#work" className="font-serif text-xl italic text-oxblood underline decoration-1 underline-offset-4 hover:opacity-80">see my work</a>
-                </div>
+              <p className="mt-6 max-w-xl text-lg leading-relaxed text-fg-2">{site.intro}</p>
+              <div className="mt-7 flex flex-wrap items-center gap-5">
+                <a href="#contact" className="bg-oxblood px-6 py-3 text-xs font-bold uppercase tracking-[0.18em] text-cream transition-opacity hover:opacity-90">Work with me</a>
+                <a href="#work" className="font-serif text-xl italic text-oxblood underline decoration-1 underline-offset-4 hover:opacity-80">see my work</a>
+                <ul className="flex gap-2 sm:ml-auto">
+                  {site.links.map((l) => (
+                    <li key={l.href}>
+                      <a href={l.href} rel="me noopener" target="_blank" aria-label={l.label}
+                        className="grid size-11 place-items-center bg-espresso font-sans text-sm font-extrabold text-cream ring-1 ring-gold transition-colors hover:bg-oxblood">
+                        {socialShort[l.label] ?? l.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <ul className="flex gap-3 md:flex-col">
-                {site.links.map((l) => (
-                  <li key={l.href}>
-                    <a href={l.href} rel="me noopener" target="_blank" aria-label={l.label}
-                      className="grid size-12 place-items-center bg-espresso font-sans text-base font-extrabold text-cream ring-1 ring-gold transition-colors hover:bg-oxblood">
-                      {socialShort[l.label] ?? l.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
+              <p aria-hidden="true" className="mt-8 text-right font-marker text-4xl text-oxblood -rotate-3">abruX</p>
             </div>
           </div>
         </section>

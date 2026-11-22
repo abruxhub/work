@@ -213,3 +213,28 @@ export function FilmStrip({ photos, className = "", reverse = false }: { photos:
     </div>
   );
 }
+
+/* Event credential on a lanyard, with a photo. */
+export function Credential({ name, handle, role, photo, className = "" }: { name: string; handle: string; role: string; photo: Photo; className?: string }) {
+  return (
+    <div className={`relative w-[min(76vw,19rem)] ${className}`}>
+      <span aria-hidden="true" className="absolute -top-44 left-1/2 h-48 w-6 -translate-x-1/2 bg-oxblood bg-[repeating-linear-gradient(0deg,transparent_0_10px,rgb(239_230_212/0.18)_10px_12px)]" />
+      <span aria-hidden="true" className="absolute -top-2 left-1/2 z-10 h-6 w-10 -translate-x-1/2 rounded-sm border-[3px] border-gold bg-espresso" />
+      <div className="relative rounded-2xl border-[3px] border-espresso bg-raised p-3 text-espresso shadow-[8px_10px_0_rgb(36_21_15/0.3)]">
+        <span aria-hidden="true" className="mx-auto mb-3 block h-3 w-16 rounded-full bg-espresso/80" />
+        <div className="flex items-center justify-between bg-oxblood px-3 py-2 font-sans text-sm font-extrabold uppercase tracking-wide text-cream">
+          <span>All access</span>
+          <span className="text-gold">Staff</span>
+        </div>
+        <div className="mt-3 aspect-[4/5] overflow-hidden rounded-lg bg-espresso">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={photo.src} alt={photo.alt} fetchPriority="high" className="size-full object-cover object-top" />
+        </div>
+        <p className="mt-3 font-marker text-4xl leading-none text-oxblood">{handle}</p>
+        <p className="mt-1 font-sans text-sm font-bold uppercase">{name}</p>
+        <p className="font-sans text-xs uppercase text-espresso/70">{role}</p>
+        <span aria-hidden="true" className="mt-3 block h-8 bg-[repeating-linear-gradient(90deg,#24150f_0_2px,transparent_2px_4px,#24150f_4px_7px,transparent_7px_9px,#24150f_9px_10px,transparent_10px_13px)]" />
+      </div>
+    </div>
+  );
+}
