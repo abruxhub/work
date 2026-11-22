@@ -65,11 +65,25 @@ export const services = [
 export const workCategories = ["management", "broadcast", "marketing", "tournament", "event organizer", "more"] as const;
 export type WorkCategory = (typeof workCategories)[number];
 
-export type Credit = { year: string; title: string; role: string; category: WorkCategory };
+// To add photos of a job: drop the images in /public/work/ and list them in that
+// entry's `photos`, e.g. { src: "/work/nace-finals-1.jpg", alt: "Observer desk at the NACE finals" }.
+// Up to 4 show per entry. `points` are optional bullet lines.
+export type Credit = {
+  year: string;
+  title: string;
+  role: string;
+  category: WorkCategory;
+  points?: string[];
+  photos?: { src: string; alt: string }[];
+};
 
 // Categories with no credits are hidden. "marketing" is empty until Abril adds her marketing work.
 export const credits: Credit[] = [
-  { category: "management", year: "2026", title: "St. Clair College Esports", role: "Esports coordinator, varsity and academy teams" },
+  {
+    category: "management", year: "2026", title: "St. Clair College Esports", role: "Esports coordinator, varsity and academy teams",
+    points: ["Manage the Saints varsity and academy rosters", "Run match days, including the VALORANT playoffs", "Support college events and bootcamps"],
+    photos: [{ src: "/photos/jersey.webp", alt: "Abril in a St. Clair Saints jersey" }],
+  },
   { category: "broadcast", year: "2026", title: "NACE VALORANT Grand Finals", role: "Observer (POV) and production assistant" },
   { category: "broadcast", year: "2025", title: "St. Clair College Esports", role: "Replay operator, League of Legends" },
   { category: "tournament", year: "2026", title: "Last Chance", role: "Online coordination, team manager contact" },
@@ -84,6 +98,17 @@ export const credits: Credit[] = [
 export const about = [
   "I'm Argentine and German, and I moved to Canada in 2025 to study Esports Administration and Entrepreneurship at St. Clair College. I joined the events team in my first term and became esports coordinator at the start of my second year.",
   "Playing at a pro level taught me what teams actually need from the people around them. I care about the scene growing, in Canada and in Latin America, and I like being the one who makes the day run on time.",
+] as const;
+
+// Names from Abril's real work. Logos can replace the text later (add `logo: "/brands/x.png"`).
+export const brands = [
+  "St. Clair Saints",
+  "NACE",
+  "Last Chance",
+  "Fragadelphia",
+  "The Summoning",
+  "No Sweat Blossom",
+  "VCT Game Changers LATAM",
 ] as const;
 
 // Public numbers as of Nov 2026. Update when they change.

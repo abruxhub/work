@@ -1,5 +1,5 @@
 import { ClipboardList, Gamepad2, Languages, Users } from "lucide-react";
-import { about, credits, education, photos, services, site, skillGroups, stats, workCategories } from "@/content/site";
+import { about, brands, credits, education, photos, services, site, skillGroups, stats, workCategories } from "@/content/site";
 import { ContactForm } from "@/components/contact-form";
 import {
   BinderClip, Credential, Heart, MixHead, PaperClip, Phone, Polaroid, Receipt, Scribble, Sparkle, Star, Tag, Tape,
@@ -20,8 +20,43 @@ const tilt = ["-rotate-2", "rotate-1", "-rotate-1", "rotate-2", "rotate-0"];
 const statIcons = { users: Users, languages: Languages, clipboard: ClipboardList, gamepad: Gamepad2 };
 const socialShort: Record<string, string> = { X: "X", Instagram: "IG", LinkedIn: "in" };
 
+const frame = ["-rotate-3", "rotate-2", "rotate-[-1deg]", "rotate-3"];
+
+function WorkEntry({ c, flip }: { c: (typeof credits)[number]; flip: boolean }) {
+  const pics = (c.photos ?? []).slice(0, 4);
+  return (
+    <li className={`grid items-center gap-8 ${pics.length ? "lg:grid-cols-2 lg:gap-14" : ""} ${pics.length && flip ? "lg:[&>*:first-child]:order-2" : ""} ${pics.length ? "lg:col-span-2" : ""}`}>
+      <div className="paper relative rounded-2xl p-6 shadow-[0_16px_30px_-16px_rgb(22_17_19/0.6)] sm:p-8">
+        <BinderClip className="-top-7 left-10" />
+        <span className="inline-block rounded-full border-2 border-ink px-3 py-0.5 font-mono text-sm">{c.year}</span>
+        <h4 className="mt-3 font-serif text-3xl leading-tight sm:text-4xl">{c.title}</h4>
+        <p className="mt-1 font-sans font-bold lowercase text-bg">{c.role}</p>
+        {c.points && (
+          <ul className="mt-4 grid gap-1.5 text-fg-2">
+            {c.points.map((pt) => (
+              <li key={pt} className="flex gap-2"><Sparkle className="mt-1.5 size-3 shrink-0 text-bg" />{pt}</li>
+            ))}
+          </ul>
+        )}
+      </div>
+      {pics.length > 0 && (
+        <ul className={`grid gap-4 ${pics.length === 1 ? "grid-cols-1 justify-items-center" : "grid-cols-2"}`}>
+          {pics.map((p, i) => (
+            <li key={p.src} className={`relative ${frame[i % frame.length]} ${pics.length === 3 && i === 0 ? "col-span-2" : ""}`}>
+              <Tape className="-top-3 left-1/2 z-10 -translate-x-1/2 rotate-6 bg-blush/70" />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={p.src} alt={p.alt}
+                className={`w-full rounded-2xl border-[6px] border-white object-cover shadow-[0_16px_30px_-16px_rgb(22_17_19/0.6)] ${pics.length === 1 ? "aspect-[4/3] max-w-md" : "aspect-[4/3]"}`} />
+            </li>
+          ))}
+        </ul>
+      )}
+    </li>
+  );
+}
+
 export default function Home() {
-  const [heroPhoto, flagPhoto, headsetPhoto, jerseyPhoto, wallPhoto] = photos;
+  const [heroPhoto, flagPhoto, headsetPhoto, , wallPhoto] = photos;
   return (
     <>
       <header className="sticky top-0 z-40 bg-bg/95 backdrop-blur">
@@ -103,6 +138,22 @@ export default function Home() {
           </div>
         </section>
 
+        {/* ── Brands ── */}
+        <section aria-labelledby="brands-h" className="bg-ink py-10 text-white">
+          <div className="mx-auto max-w-6xl px-6">
+            <h2 id="brands-h" className="text-center font-sans text-sm font-extrabold uppercase tracking-[0.18em] text-blush">
+              Companies and brands I’ve worked with
+            </h2>
+            <ul className="mt-6 flex flex-wrap justify-center gap-3 sm:gap-4">
+              {brands.map((b, i) => (
+                <li key={b} className={`grid size-[6.25rem] place-items-center rounded-full border-2 border-white bg-bg p-2 text-center font-sans font-extrabold uppercase leading-tight tracking-tight shadow-[3px_4px_0_rgb(246_185_204/0.5)] sm:size-32 ${b.split(" ").some((w) => w.length > 9) ? "text-[0.6rem] sm:text-xs" : "text-[0.72rem] sm:text-sm"} ${i % 2 ? "rotate-3" : "-rotate-3"}`}>
+                  {b}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
         {/* ── About ── */}
         <section id="about" aria-labelledby="about-h" className="paper relative overflow-hidden">
           <Sparkle className="absolute top-16 right-[42%] size-6 text-bg/70" />
@@ -175,9 +226,9 @@ export default function Home() {
                 })}
               </ul>
             </div>
-            {jerseyPhoto && (
+            {headsetPhoto && (
               <div className="relative justify-self-center">
-                <Phone photo={jerseyPhoto} label="game day · saints val" className="rotate-3" />
+                <Phone photo={headsetPhoto} label="on comms" className="rotate-3" />
                 <Heart className="absolute -top-4 -left-6 size-12 -rotate-12 text-blush" />
                 <Star className="absolute -right-8 bottom-16 size-16 rotate-12" />
               </div>
@@ -205,47 +256,28 @@ export default function Home() {
 
         {/* ── Work ── */}
         <section id="work" aria-labelledby="work-h" className="halftone relative overflow-hidden">
-          <Sparkle className="absolute top-40 left-[46%] size-6 text-white/80" />
+          <Sparkle className="absolute top-28 right-[10%] size-7 text-white/80" />
+          <Heart className="absolute top-40 right-[18%] size-8 rotate-12 text-blush" />
           <div className="mx-auto max-w-6xl px-6 py-24">
-            <div className="flex flex-wrap items-center justify-between gap-10">
-              <div>
-                <MixHead id="work-h" a="recent" b="work" />
-                <p className="mt-4 font-marker text-3xl text-white">teams, broadcasts, events</p>
-              </div>
-              {headsetPhoto && (
-                <div className="relative sm:mr-10">
-                  <Polaroid photo={headsetPhoto} caption="on comms" className="-rotate-3" />
-                  <PaperClip className="-top-8 left-6 h-16 w-6 -rotate-12" />
-                </div>
-              )}
-            </div>
-            <div className="mt-14 grid gap-14 lg:grid-cols-2 lg:gap-x-12">
+            <MixHead id="work-h" a="working" b="experience" />
+            <p className="mt-4 font-marker text-3xl text-white">teams, broadcasts, events</p>
+            <div className="mt-16 grid gap-20">
               {workCategories.map((cat) => {
                 const items = credits.filter((c) => c.category === cat);
                 if (!items.length) return null;
                 return (
                   <div key={cat}>
-                    <h3 className="flex items-baseline gap-3">
+                    <h3 className="flex items-center gap-4">
                       <span className="inline-block bg-white px-3 pt-1 pb-1.5 font-sans text-2xl font-extrabold lowercase leading-none text-ink sm:text-3xl">{cat}</span>
-                      <span className="font-marker text-2xl text-white">{items.length}</span>
+                      <span aria-hidden="true" className="h-0.5 flex-1 bg-white/40" />
                     </h3>
-                    <svg aria-hidden="true" viewBox="0 0 1200 60" preserveAspectRatio="none" className="mt-3 h-8 w-full text-white/80">
-                      <path d="M0 10 C 300 60, 900 60, 1200 10" fill="none" stroke="currentColor" strokeWidth="3" />
-                    </svg>
-                    <ol className="-mt-3 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6">
-                      {items.map((c, i) => (
-                        <li key={c.title + c.role} className={`paper relative px-3 pt-7 pb-4 shadow-[0_14px_26px_-14px_rgb(22_17_19/0.6)] sm:px-4 sm:pb-5 ${tilt[i % tilt.length]}`}>
-                          <BinderClip className="-top-6 left-1/2 -translate-x-1/2 scale-75" />
-                          <p className="font-marker text-xl leading-none text-bg">{c.year}</p>
-                          <h4 className="mt-2 font-serif text-xl leading-tight sm:text-2xl">{c.title}</h4>
-                          <p className="mt-2 text-sm text-fg-3">{c.role}</p>
-                        </li>
-                      ))}
+                    <ol className="mt-10 grid gap-x-10 gap-y-14 lg:grid-cols-2">
+                      {items.map((c, i) => <WorkEntry key={c.title + c.role} c={c} flip={i % 2 === 1} />)}
                     </ol>
                   </div>
                 );
               })}
-              <a href="#contact" className="group relative grid aspect-square max-w-xs place-content-center justify-self-center rotate-3 bg-blush p-8 text-center text-ink shadow-[0_18px_30px_-14px_rgb(22_17_19/0.6)] transition-transform hover:rotate-1">
+              <a href="#contact" className="group relative mx-auto grid w-full max-w-sm rotate-2 place-content-center bg-blush px-8 py-10 text-center text-ink shadow-[0_18px_30px_-14px_rgb(22_17_19/0.6)] transition-transform hover:rotate-1">
                 <Tape className="-top-3 left-1/2 -translate-x-1/2 -rotate-3" />
                 <span className="font-marker text-4xl leading-none">your event next?</span>
                 <span className="mt-4 font-sans font-extrabold lowercase underline decoration-2 underline-offset-4">let’s talk →</span>
@@ -299,7 +331,7 @@ export default function Home() {
           <Sparkle className="absolute top-16 right-[10%] size-7 text-white/80" />
           <Heart className="absolute bottom-16 left-[8%] size-9 rotate-12 text-blush" />
           <div className="mx-auto grid max-w-6xl gap-12 px-6 py-24 lg:grid-cols-[auto_1fr] lg:items-center">
-            <MixHead id="edu-h" a="school" b="days" />
+            <MixHead id="edu-h" a="education" b="background" />
             <ol className="grid gap-10">
               {education.map((e) => (
                 <li key={e.school} className="paper relative max-w-2xl -rotate-1 bg-[repeating-linear-gradient(180deg,transparent_0_31px,rgb(156_72_102/0.18)_31px_32px)] px-6 pt-10 pb-8 shadow-[0_18px_30px_-14px_rgb(22_17_19/0.6)] sm:px-10">

@@ -6,6 +6,13 @@ Personal site for Abril Molins Sandner. Next.js 15 (App Router), React 19, Tailw
 
 All copy lives in `src/content/site.ts`: headline, intro, services, work credits and about text.
 
+## Add photos to a work entry
+
+1. Put the images in `public/work/` (JPG, PNG or WebP, ideally under 500 KB each).
+2. In `src/content/site.ts`, find the entry in `credits` and add, for example:
+   `photos: [{ src: "/work/nace-finals-1.jpg", alt: "Observer desk at the NACE finals" }]`
+3. Up to 4 photos show per entry. Entries without photos sit side by side as cards.
+
 ## Run it
 
 ```bash
