@@ -193,3 +193,21 @@ export const cutouts = {
   jersey: { src: "/cutouts/jersey.webp", alt: "Abril in a St. Clair Saints jersey" },
   flag: { src: "/cutouts/flag.webp", alt: "Abril in a Saints jersey with the Argentina flag" },
 } satisfies Record<string, Photo>;
+
+// Three highlight cards (in the layout's "kind words" slot). From Abril's own LinkedIn posts.
+// When real quotes from colleagues come in, they can go here as testimonials instead.
+export const highlights = [
+  { photo: { src: "/work/nace-3.webp", alt: "Production desk at the NACE VALORANT Grand Finals" }, title: "NACE VALORANT Grand Finals", text: "POV observer and production assistant at one of the biggest North American collegiate LANs." },
+  { photo: { src: "/work/tauceti-2.webp", alt: "Tau Ceti Cup scoreboard for Marathon" }, title: "Tau Ceti Cup for Bungie’s Marathon", text: "Referee and admin for the Spanish creator team: Rubius, TheGrefg and IlloJuan." },
+  { photo: { src: "/work/relic.webp", alt: "Relic Arena key art" }, title: "Relic Arena", text: "Translated the whole game into Spanish and Portuguese. Out now on Steam." },
+] as const;
+
+// FAQ. Answers only state things already on this page.
+export const faqs = [
+  { q: "What kind of work do you do?", a: "Esports team coordination, event production, in-game observing and replays, and Spanish and Portuguese localization." },
+  { q: "Which games do you know best?", a: "VALORANT, which I played professionally, and League of Legends, where I work as a replay operator." },
+  { q: "Which languages do you work in?", a: "Spanish, English and Portuguese, all fluently." },
+  { q: "Where are you based?", a: "Ontario, Canada. I also work on online events and projects for Latin America." },
+  { q: "Do you translate games?", a: "Yes. I translated Relic Arena into Spanish and Portuguese, and I can do esports and game copy too." },
+  { q: "How do I get in touch?", a: "Use the form at the bottom of this page, or message me on X, Instagram or LinkedIn." },
+] as const;
