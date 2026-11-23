@@ -62,7 +62,7 @@ export const services = [
   },
 ] as const;
 
-export const workCategories = ["management", "broadcast", "marketing", "tournament", "event organizer", "more"] as const;
+export const workCategories = ["management", "broadcast", "marketing", "event organizer", "more"] as const;
 export type WorkCategory = (typeof workCategories)[number];
 
 // To add photos of a job: drop the images in /public/work/ and list them in that
@@ -112,11 +112,11 @@ export const credits: Credit[] = [
   },
   { category: "broadcast", year: "2025", title: "St. Clair College Esports", role: "Replay operator, League of Legends", date: "2025", sort: 202509, org: "St. Clair College Saints", game: "League of Legends", tag: "Replay op" },
   {
-    category: "tournament", year: "2026", title: "Tau Ceti Cup (Bungie’s Marathon)", role: "Referee and admin, Spanish creator team", date: "Mar 2026", sort: 202603, org: "Bungie", game: "Marathon", tag: "Referee",
+    category: "event organizer", year: "2026", title: "Tau Ceti Cup (Bungie’s Marathon)", role: "Referee and admin, Spanish creator team", date: "Mar 2026", sort: 202603, org: "Bungie", game: "Marathon", tag: "Referee",
     points: ["Creator event for the launch of Bungie’s Marathon", "Admin for Rubius, TheGrefg and IlloJuan, and kept score"],
     photos: [{ src: "/work/tauceti-2.webp", alt: "Tau Ceti Cup scoreboard graphic for Marathon" }],
   },
-  { category: "tournament", year: "2026", title: "Last Chance", role: "Online coordination, team manager contact", date: "Nov 2026", sort: 202611, org: "Last Chance", game: "Online event", tag: "Tournament ops" },
+  { category: "event organizer", year: "2026", title: "Last Chance", role: "Online coordination, team manager contact", date: "Nov 2026", sort: 202611, org: "Last Chance", game: "Online event", tag: "Tournament ops" },
   { category: "event organizer", year: "2026", title: "Fragadelphia Windsor", role: "Event staff", date: "Jul 2026", sort: 202607, org: "Fragadelphia", game: "LAN event", tag: "Event staff" },
   { category: "event organizer", year: "2026", title: "The Summoning", role: "Event staff", date: "Jul 2026", sort: 202607, org: "The Summoning", game: "LAN event", tag: "Event staff" },
   {
@@ -140,7 +140,8 @@ export const credits: Credit[] = [
     photos: [{ src: "/work/relic.webp", alt: "Relic Arena key art" }],
   },
   { category: "more", year: "2025", title: "No Sweat Blossom", role: "Professional VALORANT player", date: "Jun 2025", sort: 202506, org: "No Sweat Blossom", game: "VALORANT", tag: "Player" },
-  { category: "more", year: "Earlier", title: "VCT Game Changers LATAM", role: "Professional VALORANT player", date: "Earlier", sort: 202400, org: "VCT Game Changers LATAM", game: "VALORANT", tag: "Player" },
+  { category: "more", year: "2025", title: "Leviatán", role: "Professional VALORANT player", date: "2025", sort: 202500, org: "Leviatán", game: "VALORANT", tag: "Player" },
+  { category: "more", year: "2023", title: "Ebro", role: "Professional VALORANT player", date: "2023", sort: 202300, org: "Ebro", game: "VALORANT", tag: "Player" },
 ];
 
 export const about = [
