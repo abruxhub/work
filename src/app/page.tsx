@@ -181,7 +181,7 @@ export default function Home() {
             <p className="mt-2 font-marker text-2xl text-oxblood">a few I’m proud of</p>
             <ul className="mt-24 flex flex-wrap justify-center gap-x-8 gap-y-24">
               {highlights.map((h) => (
-                <li key={h.title} className="relative w-full bg-raised px-6 sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.34rem)] pt-32 pb-8 shadow-[0_16px_30px_-18px_rgb(36_21_15/0.5)]">
+                <li key={h.title} className="relative w-full bg-raised px-6 sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.34rem)] pt-32 pb-8 shadow-[0_16px_30px_-18px_rgb(38_12_15/0.5)]">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={h.photo.src} alt={h.photo.alt} className="absolute -top-16 left-1/2 aspect-square w-44 -translate-x-1/2 border-4 border-raised object-cover shadow-md" />
                   <h3 className="font-serif text-2xl leading-tight">{h.title}</h3>
@@ -218,7 +218,7 @@ export default function Home() {
                 <li key={group.title} className="text-center">
                   {photo && (
                     // eslint-disable-next-line @next/next/no-img-element
-                    <img src={photo.src} alt={photo.alt} className="aspect-[4/3] w-full object-cover sepia-[.2]" />
+                    <img src={photo.src} alt={photo.alt} className="aspect-[4/3] w-full object-cover" />
                   )}
                   <Label className="mt-4 block text-oxblood">{group.title}</Label>
                   <p className="mt-2 text-sm leading-relaxed text-fg-2">{group.items.join(" · ")}</p>

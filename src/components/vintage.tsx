@@ -5,14 +5,14 @@ type C = { className?: string };
 export function Butterfly({ className = "" }: C) {
   return (
     <svg viewBox="0 0 64 48" aria-hidden="true" className={className}>
-      <g stroke="#9a8f80" strokeWidth=".8">
-        <path d="M31 22C24 6 9 0 4 6s4 18 27 18Z" fill="#f7f3ec" />
-        <path d="M33 22C40 6 55 0 60 6s-4 18-27 18Z" fill="#f2ede4" />
-        <path d="M31 25C20 26 10 34 13 41s15 1 18-14Z" fill="#ece6db" />
-        <path d="M33 25c11 1 21 9 18 16s-15 1-18-14Z" fill="#e7e0d3" />
+      <g stroke="#b98a8d" strokeWidth=".8">
+        <path d="M31 22C24 6 9 0 4 6s4 18 27 18Z" fill="#faf5ef" />
+        <path d="M33 22C40 6 55 0 60 6s-4 18-27 18Z" fill="#f6eee8" />
+        <path d="M31 25C20 26 10 34 13 41s15 1 18-14Z" fill="#f1e3df" />
+        <path d="M33 25c11 1 21 9 18 16s-15 1-18-14Z" fill="#eddad6" />
         <path d="M10 8c6 2 12 7 19 14M54 8c-6 2-12 7-19 14" fill="none" />
       </g>
-      <path d="M32 16v18" stroke="#3a2a20" strokeWidth="2" strokeLinecap="round" />
+      <path d="M32 16v18" stroke="#260c0f" strokeWidth="2" strokeLinecap="round" />
     </svg>
   );
 }
@@ -20,13 +20,13 @@ export function Butterfly({ className = "" }: C) {
 export function Flower({ className = "" }: C) {
   return (
     <svg viewBox="0 0 60 60" aria-hidden="true" className={className}>
-      <g fill="#faf7f1" stroke="#cfc6b8" strokeWidth=".8">
+      <g fill="#faf5ef" stroke="#d9b3b5" strokeWidth=".8">
         {[0, 72, 144, 216, 288].map((r) => (
           <path key={r} transform={`rotate(${r} 30 30)`} d="M30 30c-8-6-9-18 0-25 9 7 8 19 0 25Z" />
         ))}
       </g>
-      <circle cx="30" cy="30" r="4.5" fill="#d8b964" />
-      <circle cx="30" cy="30" r="2" fill="#9a7a2e" />
+      <circle cx="30" cy="30" r="4.5" fill="#c4505a" />
+      <circle cx="30" cy="30" r="2" fill="#6b1d27" />
     </svg>
   );
 }
@@ -48,7 +48,7 @@ export function GiltFrame({ photo, shape = "rect", className = "", imgClass = ""
 
 export function TornNote({ children, className = "", inner = "" }: { children: React.ReactNode; className?: string; inner?: string }) {
   return (
-    <div className={`drop-shadow-[0_14px_18px_rgb(36_21_15/0.35)] ${className}`}>
+    <div className={`drop-shadow-[0_14px_18px_rgb(38_12_15/0.35)] ${className}`}>
       <div className={`torn grain bg-parchment px-6 py-8 text-espresso ${inner}`}>{children}</div>
     </div>
   );
@@ -88,7 +88,7 @@ export function PixelReveal({ photo, className = "" }: { photo: Photo; className
 
 export function Phone({ photo, label, className = "" }: { photo: Photo; label: string; className?: string }) {
   return (
-    <figure className={`relative w-[min(58vw,14.5rem)] rounded-[2.6rem] bg-espresso p-2 shadow-[0_0_0_2px_#b08d57,0_26px_44px_-18px_rgb(0_0_0/0.7)] ${className}`}>
+    <figure className={`relative w-[min(58vw,14.5rem)] rounded-[2.6rem] bg-espresso p-2 shadow-[0_0_0_2px_#c4505a,0_26px_44px_-18px_rgb(0_0_0/0.7)] ${className}`}>
       <span aria-hidden="true" className="absolute top-4 left-1/2 z-10 h-5 w-20 -translate-x-1/2 rounded-full bg-espresso" />
       <div className="relative aspect-[9/19] overflow-hidden rounded-[2.1rem]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -103,8 +103,8 @@ export function Seal({ className = "" }: C) {
   return (
     <svg viewBox="0 0 80 80" aria-hidden="true" className={className}>
       <circle cx="40" cy="40" r="36" fill="#6b1d27" />
-      <circle cx="40" cy="40" r="29" fill="none" stroke="#efe6d4" strokeOpacity=".6" strokeDasharray="2 3" />
-      <text x="40" y="47" textAnchor="middle" fontFamily="Instrument Serif, serif" fontStyle="italic" fontSize="22" fill="#efe6d4">aX</text>
+      <circle cx="40" cy="40" r="29" fill="none" stroke="#f4ebe1" strokeOpacity=".6" strokeDasharray="2 3" />
+      <text x="40" y="47" textAnchor="middle" fontFamily="Instrument Serif, serif" fontStyle="italic" fontSize="22" fill="#f4ebe1">aX</text>
     </svg>
   );
 }
@@ -112,7 +112,7 @@ export function Seal({ className = "" }: C) {
 /* ── Collage pieces, in the cream and dark red palette ── */
 
 export function Star({ className = "", tone = "cream" }: C & { tone?: "cream" | "oxblood" }) {
-  const fill = tone === "cream" ? "#f6efe2" : "#6b1d27";
+  const fill = tone === "cream" ? "#faf5ef" : "#6b1d27";
   return (
     <svg viewBox="0 0 100 100" aria-hidden="true" className={className}>
       <path d="M51 4 63 37 97 38 70 59 80 94 50 73 19 95 30 59 3 38 38 36Z" fill={fill} stroke="#260c0f" strokeWidth="3.5" strokeLinejoin="round" />
@@ -168,7 +168,7 @@ export function Zigzag({ className = "" }: C) {
 export function Tape({ className = "" }: C) {
   return (
     <span aria-hidden="true"
-      className={`absolute z-10 h-7 w-24 bg-[repeating-linear-gradient(90deg,rgb(239_230_212/0.8)_0_6px,rgb(227_214_189/0.75)_6px_12px)] shadow-sm ${className}`} />
+      className={`absolute z-10 h-7 w-24 bg-[repeating-linear-gradient(90deg,rgb(244_235_225/0.8)_0_6px,rgb(239_220_215/0.75)_6px_12px)] shadow-sm ${className}`} />
   );
 }
 
@@ -177,14 +177,14 @@ export function Cutout({ photo, className = "", priority = false }: { photo: Pho
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img src={photo.src} alt={photo.alt} fetchPriority={priority ? "high" : undefined}
-      className={`h-auto drop-shadow-[0_18px_22px_rgb(36_21_15/0.45)] ${className}`} />
+      className={`h-auto drop-shadow-[0_18px_22px_rgb(38_12_15/0.45)] ${className}`} />
   );
 }
 
 /* A taped print: photo with a cream border, a strip of tape and an optional marker caption. */
 export function Print({ photo, caption, className = "", imgClass = "aspect-[4/5]" }: { photo: Photo; caption?: string; className?: string; imgClass?: string }) {
   return (
-    <figure className={`relative bg-raised p-2.5 pb-3 shadow-[0_16px_28px_-14px_rgb(36_21_15/0.55)] ${className}`}>
+    <figure className={`relative bg-raised p-2.5 pb-3 shadow-[0_16px_28px_-14px_rgb(38_12_15/0.55)] ${className}`}>
       <Tape className="-top-3 left-1/2 -translate-x-1/2 -rotate-3" />
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src={photo.src} alt={photo.alt} className={`w-full object-cover ${imgClass}`} />
@@ -197,7 +197,7 @@ export function Print({ photo, caption, className = "", imgClass = "aspect-[4/5]
    the second copy is hidden from screen readers. */
 export function FilmStrip({ photos, className = "", reverse = false }: { photos: Photo[]; className?: string; reverse?: boolean }) {
   const frames = [0, 1].flatMap((r) => photos.map((p, i) => ({ p, key: `${r}-${i}`, dup: r > 0 })));
-  const holes = "bg-[repeating-linear-gradient(90deg,#efe6d4_0_10px,transparent_10px_22px)]";
+  const holes = "bg-[repeating-linear-gradient(90deg,#f4ebe1_0_10px,transparent_10px_22px)]";
   return (
     <div className={`relative overflow-hidden bg-espresso py-5 shadow-[0_18px_30px_-16px_rgb(0_0_0/0.6)] ${className}`}>
       <span aria-hidden="true" className={`absolute inset-x-0 top-1.5 h-2 opacity-80 ${holes}`} />
@@ -206,7 +206,7 @@ export function FilmStrip({ photos, className = "", reverse = false }: { photos:
         {frames.map(({ p, key, dup }) => (
           <li key={key} aria-hidden={dup || undefined} className="mr-3 aspect-[4/3] w-44 shrink-0 overflow-hidden bg-brown sm:w-60">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={p.src} alt={dup ? "" : p.alt} className="size-full object-cover object-[50%_25%] sepia-[.3] saturate-[.85]" />
+            <img src={p.src} alt={dup ? "" : p.alt} className="size-full object-cover object-[50%_25%]" />
           </li>
         ))}
       </ul>
@@ -218,9 +218,9 @@ export function FilmStrip({ photos, className = "", reverse = false }: { photos:
 export function Credential({ name, handle, role, photo, className = "" }: { name: string; handle: string; role: string; photo: Photo; className?: string }) {
   return (
     <div className={`relative w-[min(76vw,19rem)] ${className}`}>
-      <span aria-hidden="true" className="absolute -top-44 left-1/2 h-48 w-6 -translate-x-1/2 bg-oxblood bg-[repeating-linear-gradient(0deg,transparent_0_10px,rgb(239_230_212/0.18)_10px_12px)]" />
+      <span aria-hidden="true" className="absolute -top-44 left-1/2 h-48 w-6 -translate-x-1/2 bg-oxblood bg-[repeating-linear-gradient(0deg,transparent_0_10px,rgb(244_235_225/0.18)_10px_12px)]" />
       <span aria-hidden="true" className="absolute -top-2 left-1/2 z-10 h-6 w-10 -translate-x-1/2 rounded-sm border-[3px] border-gold bg-espresso" />
-      <div className="relative rounded-2xl border-[3px] border-espresso bg-raised p-3 text-espresso shadow-[8px_10px_0_rgb(36_21_15/0.3)]">
+      <div className="relative rounded-2xl border-[3px] border-espresso bg-raised p-3 text-espresso shadow-[8px_10px_0_rgb(38_12_15/0.3)]">
         <span aria-hidden="true" className="mx-auto mb-3 block h-3 w-16 rounded-full bg-espresso/80" />
         <div className="flex items-center justify-between bg-oxblood px-3 py-2 font-sans text-sm font-extrabold uppercase tracking-wide text-cream">
           <span>All access</span>
