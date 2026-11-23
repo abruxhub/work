@@ -102,20 +102,20 @@ export function Phone({ photo, label, className = "" }: { photo: Photo; label: s
 export function Seal({ className = "" }: C) {
   return (
     <svg viewBox="0 0 80 80" aria-hidden="true" className={className}>
-      <circle cx="40" cy="40" r="36" fill="#7a5236" />
+      <circle cx="40" cy="40" r="36" fill="#6b1d27" />
       <circle cx="40" cy="40" r="29" fill="none" stroke="#efe6d4" strokeOpacity=".6" strokeDasharray="2 3" />
       <text x="40" y="47" textAnchor="middle" fontFamily="Instrument Serif, serif" fontStyle="italic" fontSize="22" fill="#efe6d4">aX</text>
     </svg>
   );
 }
 
-/* ── Collage pieces, in the cream / oxblood / brown palette ── */
+/* ── Collage pieces, in the cream and dark red palette ── */
 
 export function Star({ className = "", tone = "cream" }: C & { tone?: "cream" | "oxblood" }) {
-  const fill = tone === "cream" ? "#f6efe2" : "#7a5236";
+  const fill = tone === "cream" ? "#f6efe2" : "#6b1d27";
   return (
     <svg viewBox="0 0 100 100" aria-hidden="true" className={className}>
-      <path d="M51 4 63 37 97 38 70 59 80 94 50 73 19 95 30 59 3 38 38 36Z" fill={fill} stroke="#24150f" strokeWidth="3.5" strokeLinejoin="round" />
+      <path d="M51 4 63 37 97 38 70 59 80 94 50 73 19 95 30 59 3 38 38 36Z" fill={fill} stroke="#260c0f" strokeWidth="3.5" strokeLinejoin="round" />
     </svg>
   );
 }
@@ -233,7 +233,7 @@ export function Credential({ name, handle, role, photo, className = "" }: { name
         <p className="mt-3 font-marker text-4xl leading-none text-oxblood">{handle}</p>
         <p className="mt-1 font-sans text-sm font-bold uppercase">{name}</p>
         <p className="font-sans text-xs uppercase text-espresso/70">{role}</p>
-        <span aria-hidden="true" className="mt-3 block h-8 bg-[repeating-linear-gradient(90deg,#24150f_0_2px,transparent_2px_4px,#24150f_4px_7px,transparent_7px_9px,#24150f_9px_10px,transparent_10px_13px)]" />
+        <span aria-hidden="true" className="mt-3 block h-8 bg-[repeating-linear-gradient(90deg,#260c0f_0_2px,transparent_2px_4px,#260c0f_4px_7px,transparent_7px_9px,#260c0f_9px_10px,transparent_10px_13px)]" />
       </div>
     </div>
   );

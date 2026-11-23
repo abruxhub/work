@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* Brown and cream, a touch of gilt. ("oxblood" and "wine" are the two deep browns.) */
+/* Dark red and cream, a touch of gilt. */
 @theme {
   --font-sans: "Archivo Variable", ui-sans-serif, system-ui, sans-serif;
   --font-serif: "Instrument Serif", ui-serif, Georgia, serif;
@@ -9,23 +9,23 @@
   --font-marker: "Caveat Brush", "Marker Felt", cursive;
   --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
 
-  --color-oxblood: #4a2c1c;
-  --color-wine: #7a5236;
-  --color-brown: #5b3b28;
-  --color-espresso: #24150f;
+  --color-oxblood: #4b1219;
+  --color-wine: #6b1d27;
+  --color-brown: #5a161d;
+  --color-espresso: #260c0f;
   --color-cream: #efe6d4;
   --color-parchment: #e3d6bd;
   --color-gold: #b08d57;
 
   /* Text roles for light (cream) surfaces; .on-dark flips them. */
   --color-bg: #efe6d4;
-  --color-fg: #24150f;
-  --color-fg-2: #4f3b2d;
-  --color-fg-3: #76604d;
-  --color-line: rgb(36 21 15 / 0.28);
+  --color-fg: #260c0f;
+  --color-fg-2: #4a2a2c;
+  --color-fg-3: #755a5c;
+  --color-line: rgb(38 12 15 / 0.28);
   --color-raised: #f6efe2;
-  --color-ink: #24150f;
-  --color-accent: #4a2c1c;
+  --color-ink: #260c0f;
+  --color-accent: #4b1219;
 }
 
 .on-dark {
