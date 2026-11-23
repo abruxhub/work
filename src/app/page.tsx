@@ -1,7 +1,10 @@
-import { ClipboardList, Gamepad2, Languages, Users } from "lucide-react";
-import { about, brands, credits, cutouts, education, eventPhotos, photos, services, site, skillGroups, stats, workCategories } from "@/content/site";
+import { Plus } from "lucide-react";
+import {
+  about, brands, credits, education, eventPhotos, faqs, highlights, photos, services, site, skillGroups, stats, workCategories,
+} from "@/content/site";
 import { ContactForm } from "@/components/contact-form";
-import { Arrow, Credential, Cutout, FilmStrip, Label, Loop, Phone, Print, ScriptHead, Scribble, Seal, Sparkle, Star, Tape, TornNote, Zigzag } from "@/components/vintage";
+import { WorkLog } from "@/components/work-log";
+import { Credential, Label, Loop, Print, Scribble, Seal, Sparkle, Star, Tape, TornNote } from "@/components/vintage";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -14,376 +17,292 @@ const jsonLd = {
   sameAs: site.links.map((l) => l.href),
 };
 
-const statIcons = { users: Users, languages: Languages, clipboard: ClipboardList, gamepad: Gamepad2 };
 const socialShort: Record<string, string> = { X: "X", Instagram: "IG", LinkedIn: "in" };
-const roman = ["I", "II", "III", "IV", "V", "VI"];
-const tilt = ["rotate-2", "-rotate-2", "rotate-1", "-rotate-1"];
 
-function WorkEntry({ c, flip }: { c: (typeof credits)[number]; flip: boolean }) {
-  const pics = (c.photos ?? []).slice(0, 4);
-  return (
-    <li className={`grid items-center gap-8 ${pics.length ? "lg:col-span-2 lg:grid-cols-2 lg:gap-14" : ""} ${pics.length && flip ? "lg:[&>*:first-child]:order-2" : ""}`}>
-      <div className="relative border-l-4 border-oxblood bg-raised p-6 shadow-[0_14px_28px_-18px_rgb(36_21_15/0.5)] sm:p-8">
-        <Label className="text-fg-3">{c.year}</Label>
-        <h4 className="mt-2 font-serif text-3xl leading-tight sm:text-4xl">{c.title}</h4>
-        <p className="mt-1 font-serif text-lg italic text-oxblood">{c.role}</p>
-        {c.points && (
-          <ul className="mt-4 grid gap-1.5 text-fg-2">
-            {c.points.map((pt) => (
-              <li key={pt} className="flex gap-3"><span aria-hidden="true" className="mt-2.5 h-px w-4 shrink-0 bg-oxblood" />{pt}</li>
-            ))}
-          </ul>
-        )}
-      </div>
-      {pics.length > 0 && (
-        <ul className={`relative grid gap-6 ${pics.length === 1 ? "grid-cols-1 justify-items-center" : "grid-cols-2"}`}>
-          {pics.map((p, i) => (
-            <li key={p.src} className={`${pics.length === 3 && i === 0 ? "col-span-2" : ""} ${pics.length === 1 ? "w-full max-w-md" : ""} ${tilt[i % tilt.length]}`}>
-              <Print photo={p} imgClass="aspect-[4/3]" />
-            </li>
-          ))}
-          <Star className="absolute -top-6 -right-4 size-12 rotate-12" />
-        </ul>
-      )}
-    </li>
-  );
-}
+const btn = "inline-block border-2 px-6 py-3 text-xs font-bold uppercase tracking-[0.18em] transition-colors";
+const btnSolid = `${btn} border-oxblood bg-oxblood text-cream hover:border-espresso hover:bg-espresso`;
+const btnLine = `${btn} border-espresso text-espresso hover:bg-espresso hover:text-cream`;
 
 export default function Home() {
-  const [, , headsetPhoto, jerseyPhoto, portraitPhoto] = photos;
+  const [handsPhoto, , headsetPhoto, jerseyPhoto, portraitPhoto] = photos;
+  const accordion = [
+    ...services.map((s) => ({ title: s.title, body: s.body as string, items: s.items as readonly string[] })),
+    ...skillGroups
+      .filter((g) => g.title === "games" || g.title === "languages")
+      .map((g) => ({ title: g.title === "games" ? "Games" : "Languages", body: "", items: g.items as readonly string[] })),
+  ];
+  const skillCards = [0, 1, 2].map((i) => ({ group: skillGroups[i], photo: eventPhotos[i] }));
+  const socialRow = [handsPhoto, eventPhotos[3], headsetPhoto, eventPhotos[5], portraitPhoto].filter(Boolean);
+  const ig = site.links.find((l) => l.label === "Instagram");
+  const edu = education[0];
+
   return (
     <>
+      {/* Header: links left, name centre, socials + CTA right */}
       <header className="sticky top-0 z-40 border-b border-line bg-cream/95 backdrop-blur">
-        <nav aria-label="Main" className="mx-auto flex h-14 max-w-6xl items-center justify-between px-6">
-          <a href="#top" className="font-script text-3xl leading-none text-oxblood">Abril</a>
-          <ul className="flex items-center gap-1 text-xs font-bold uppercase tracking-[0.18em] text-fg-2">
-            <li className="hidden sm:block"><a className="px-3 py-2 transition-colors hover:text-oxblood" href="#about">About</a></li>
-            <li className="hidden sm:block"><a className="px-3 py-2 transition-colors hover:text-oxblood" href="#offer">Services</a></li>
-            <li className="hidden sm:block"><a className="px-3 py-2 transition-colors hover:text-oxblood" href="#work">Work</a></li>
-            <li className="hidden md:block"><a className="px-3 py-2 transition-colors hover:text-oxblood" href="#skills">Skills</a></li>
-            <li><a className="ml-2 inline-block bg-oxblood px-4 py-2 text-cream transition-opacity hover:opacity-90" href="#contact">Contact</a></li>
+        <nav aria-label="Main" className="mx-auto grid h-16 max-w-6xl grid-cols-[1fr_auto_1fr] items-center gap-4 px-6">
+          <ul className="hidden items-center gap-1 text-xs font-bold uppercase tracking-[0.18em] text-fg-2 md:flex">
+            <li><a className="px-2 py-2 hover:text-oxblood" href="#about">About</a></li>
+            <li><a className="px-2 py-2 hover:text-oxblood" href="#work">Work</a></li>
+            <li><a className="px-2 py-2 hover:text-oxblood" href="#faq">FAQ</a></li>
           </ul>
+          <a href="#top" className="col-start-1 row-start-1 justify-self-start font-marker text-3xl leading-none text-oxblood md:col-start-2 md:justify-self-center">{site.handle}</a>
+          <div className="col-start-3 row-start-1 flex items-center justify-end gap-2">
+            <ul className="hidden gap-1 sm:flex">
+              {site.links.map((l) => (
+                <li key={l.href}>
+                  <a href={l.href} rel="me noopener" target="_blank" aria-label={l.label} className="grid size-8 place-items-center text-xs font-extrabold text-espresso hover:text-oxblood">
+                    {socialShort[l.label] ?? l.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <a href="#contact" className="border-2 border-espresso px-3 py-1.5 text-[0.7rem] font-bold uppercase tracking-[0.16em] whitespace-nowrap transition-colors hover:bg-espresso hover:text-cream">Work with me</a>
+          </div>
         </nav>
       </header>
 
       <main id="main">
-        {/* ── Hero ── */}
-        <section id="top" className="grain relative overflow-hidden">
-          <Star className="absolute top-10 right-[6%] size-12 rotate-12 sm:size-16" />
-          <Star tone="oxblood" className="absolute top-[46%] left-[3%] hidden size-10 -rotate-12 lg:block" />
-          <Sparkle className="absolute top-[34%] right-[12%] hidden size-8 text-oxblood lg:block" />
-          <Sparkle className="absolute bottom-24 left-[38%] hidden size-6 text-brown lg:block" />
-          <div className="mx-auto grid max-w-6xl items-center gap-16 px-6 pt-40 pb-28 lg:grid-cols-[auto_1fr] lg:gap-20 lg:pt-44">
-            <div className="relative justify-self-center">
-              {photos[0] && <Credential name={site.name} handle={site.handle} role={site.role} photo={photos[0]} className="-rotate-6" />}
-              <Star className="absolute -bottom-8 -left-10 size-20 -rotate-12" />
-            </div>
-            <div className="relative">
-              <h1 className="inline-flex flex-col items-start">
-                <span className="relative z-10 -mb-3 -rotate-2 bg-espresso px-4 pt-1 pb-2 font-sans text-[clamp(2rem,5vw,3.5rem)] font-extrabold lowercase leading-none tracking-tight text-cream shadow-md">meet</span>
-                <span className="font-serif text-[clamp(6rem,16vw,11.5rem)] uppercase leading-[0.85] text-oxblood">Abril</span>
+        {/* 1. Split hero */}
+        <section id="top" className="relative overflow-hidden bg-cream">
+          <div aria-hidden="true" className="grain absolute inset-y-0 right-0 hidden w-[38%] bg-parchment lg:block" />
+          <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-6 pt-16 pb-20 lg:grid-cols-[1.1fr_1fr] lg:pt-20">
+            <div>
+              <Label className="text-oxblood">{site.role}</Label>
+              <h1 className="mt-5 inline-flex flex-col items-start">
+                <span className="relative z-10 -mb-3 -rotate-2 bg-espresso px-4 pt-1 pb-2 font-sans text-[clamp(1.8rem,4.5vw,3rem)] font-extrabold lowercase leading-none tracking-tight text-cream shadow-md">meet</span>
+                <span className="font-serif text-[clamp(5.5rem,14vw,10rem)] uppercase leading-[0.85] text-oxblood">Abril</span>
                 <span className="sr-only"> Molins Sandner, {site.role}</span>
               </h1>
-              <Scribble className="-mt-1 block w-[min(85vw,30rem)] text-oxblood" />
-              <p className="relative mt-6 inline-block px-8 py-3 font-sans text-sm font-bold lowercase tracking-wide text-espresso sm:text-base">
-                <Loop className="absolute inset-0 size-full text-oxblood" />
-                ✱ esports coordinator & producer
-              </p>
-              <p className="mt-6 max-w-xl text-lg leading-relaxed text-fg-2">{site.intro}</p>
-              <div className="mt-7 flex flex-wrap items-center gap-5">
-                <a href="#contact" className="bg-oxblood px-6 py-3 text-xs font-bold uppercase tracking-[0.18em] text-cream transition-opacity hover:opacity-90">Work with me</a>
-                <a href="#work" className="font-serif text-xl italic text-oxblood underline decoration-1 underline-offset-4 hover:opacity-80">see my work</a>
-                <ul className="flex gap-2 sm:ml-auto">
-                  {site.links.map((l) => (
-                    <li key={l.href}>
-                      <a href={l.href} rel="me noopener" target="_blank" aria-label={l.label}
-                        className="grid size-11 place-items-center bg-espresso font-sans text-sm font-extrabold text-cream ring-1 ring-gold transition-colors hover:bg-oxblood">
-                        {socialShort[l.label] ?? l.label}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
+              <Scribble className="-mt-1 block w-[min(80vw,26rem)] text-oxblood" />
+              <p className="mt-6 max-w-lg text-lg leading-relaxed text-fg-2">{site.intro}</p>
+              <div className="mt-8 flex flex-wrap gap-4">
+                <a href="#contact" className={btnSolid}>Work with me</a>
+                <a href="#work" className={btnLine}>See my work</a>
               </div>
-              <p aria-hidden="true" className="mt-8 text-right font-marker text-4xl text-oxblood -rotate-3">abruX</p>
+            </div>
+            <div className="relative justify-self-center pt-40 lg:pt-32">
+              {handsPhoto && <Credential name={site.name} handle={site.handle} role={site.role} photo={handsPhoto} className="rotate-3" />}
+              <Star className="absolute bottom-6 -left-10 size-16 -rotate-12" />
+              <Sparkle className="absolute top-44 -right-6 size-8 text-oxblood" />
             </div>
           </div>
         </section>
 
-        <section aria-label="Photo strip" className="relative z-10 -my-8 overflow-hidden py-8">
-          <FilmStrip photos={eventPhotos} className="-mx-4 -rotate-2" />
+        {/* 2. Hook band */}
+        <section aria-label="In short" className="border-y border-line bg-raised">
+          <p className="mx-auto max-w-3xl px-6 py-8 text-center font-serif text-xl leading-snug text-espresso sm:text-2xl">
+            <span className="relative inline-block px-2">
+              <span className="relative z-10 italic text-oxblood">Hi, I’m abruX.</span>
+              <Loop className="absolute -inset-x-2 -inset-y-2 h-[calc(100%+1rem)] w-[calc(100%+1rem)] text-oxblood/60" />
+            </span>{" "}
+            Ex-pro VALORANT player, now an esports coordinator, broadcast observer and translator in Ontario, Canada.
+          </p>
         </section>
 
-        {/* ── Brands ── */}
-        <section aria-labelledby="brands-h" className="on-dark damask bg-espresso pt-16 pb-12">
-          <div className="mx-auto max-w-6xl px-6 text-center">
-            <h2 id="brands-h" className="flex items-center justify-center gap-3"><Sparkle className="size-4 text-gold" /><Label className="text-gold">Companies and brands I’ve worked with</Label><Sparkle className="size-4 text-gold" /></h2>
-            <ul className="mt-7 flex flex-wrap justify-center gap-3 sm:gap-5">
-              {brands.map((b) => (
-                <li key={b} className={`grid size-[6.25rem] place-items-center rounded-full bg-cream p-2 text-center font-display uppercase leading-tight tracking-wide text-oxblood ring-2 ring-gold ring-offset-4 ring-offset-espresso sm:size-32 ${b.split(" ").some((w) => w.length > 9) ? "text-[0.7rem] sm:text-sm" : "text-[0.8rem] sm:text-base"}`}>
-                  {b}
+        {/* 3. About */}
+        <section id="about" aria-labelledby="about-h" className="grain relative overflow-hidden">
+          <div className="mx-auto grid max-w-6xl items-center gap-14 px-6 py-24 lg:grid-cols-[1fr_1.15fr]">
+            <div className="relative mx-auto grid w-full max-w-md grid-cols-2 items-start gap-5">
+              {portraitPhoto && <Print photo={portraitPhoto} caption="hi!" className="-rotate-3" />}
+              {jerseyPhoto && <Print photo={jerseyPhoto} caption="game day" className="mt-14 rotate-3" />}
+              <Star className="absolute -top-8 left-[40%] size-14 -rotate-12" />
+            </div>
+            <div>
+              <h2 id="about-h" className="font-serif text-5xl leading-none sm:text-6xl">About me</h2>
+              <Label className="mt-3 block text-oxblood">Argentine-German, in Canada since 2025</Label>
+              <div className="mt-6 grid gap-4 text-lg leading-relaxed text-fg-2">
+                {about.map((p) => <p key={p}>{p}</p>)}
+              </div>
+              <ul className="mt-8 grid grid-cols-2 gap-x-6 gap-y-4 border-y border-line py-5 sm:grid-cols-4">
+                {stats.map((s) => (
+                  <li key={s.label}>
+                    <span className="block font-display text-4xl leading-none text-oxblood">{s.value}</span>
+                    <span className="mt-1 block font-serif text-base italic leading-tight text-fg-2">{s.label}</span>
+                  </li>
+                ))}
+              </ul>
+              <a href="#contact" className={`${btnLine} mt-8`}>Get in touch</a>
+            </div>
+          </div>
+        </section>
+
+        {/* 4. Marquee: companies and brands */}
+        <section aria-labelledby="brands-h" className="overflow-hidden bg-espresso py-3.5 text-cream">
+          <h2 id="brands-h" className="sr-only">Companies and brands I’ve worked with</h2>
+          <ul className="marquee flex w-max items-center">
+            {[0, 1].flatMap((r) => brands.map((b) => (
+              <li key={`${r}-${b}`} aria-hidden={r > 0 || undefined} className="flex items-center gap-6 pr-6 font-sans text-sm font-bold uppercase tracking-[0.2em] whitespace-nowrap">
+                {b}<Sparkle className="size-3 text-gold" />
+              </li>
+            )))}
+          </ul>
+        </section>
+
+        {/* 5. Photo panel + accordion */}
+        <section id="offer" aria-labelledby="offer-h" className="grid lg:grid-cols-2">
+          <div className="relative grid min-h-[36rem] place-items-center overflow-hidden bg-brown p-8">
+            {[
+              [eventPhotos[4], "top-6 left-[6%] -rotate-6"],
+              [eventPhotos[6], "top-8 right-[6%] rotate-3"],
+              [eventPhotos[7], "bottom-8 left-[8%] rotate-2"],
+              [eventPhotos[1], "bottom-6 right-[6%] -rotate-3"],
+            ].map(([p, pos]) => p && typeof p !== "string" && (
+              <div key={p.src} className={`absolute w-[38%] max-w-48 ${pos}`}><Print photo={p} imgClass="aspect-square" /></div>
+            ))}
+            <div className="relative z-10 max-w-xs bg-cream px-8 py-10 text-center shadow-[0_20px_40px_-18px_rgb(0_0_0/0.7)]">
+              <Tape className="-top-3 left-1/2 -translate-x-1/2 -rotate-2" />
+              <h2 id="offer-h" className="font-serif text-4xl leading-tight">What I do</h2>
+              <p className="mt-2 font-marker text-2xl text-oxblood">& how I can help</p>
+            </div>
+          </div>
+          <div className="bg-cream">
+            {accordion.map((a, i) => (
+              <details key={a.title} className="group border-b border-line" open={i === 0}>
+                <summary className="flex cursor-pointer list-none items-center gap-4 px-8 py-6 font-serif text-2xl hover:text-oxblood [&::-webkit-details-marker]:hidden">
+                  <Plus aria-hidden="true" className="size-5 shrink-0 transition-transform group-open:rotate-45" strokeWidth={1.5} />
+                  {a.title}
+                </summary>
+                <div className="px-8 pb-6 sm:pl-17">
+                  {a.body && <p className="leading-relaxed text-fg-2">{a.body}</p>}
+                  <ul className="mt-3 flex flex-wrap gap-2">
+                    {a.items.map((it) => <li key={it} className="border border-line px-3 py-1 text-sm">{it}</li>)}
+                  </ul>
+                </div>
+              </details>
+            ))}
+          </div>
+        </section>
+
+        {/* 6. Highlights: five cards with a photo on top */}
+        <section aria-labelledby="highlights-h" className="grain bg-parchment">
+          <div className="mx-auto max-w-6xl px-6 py-24 text-center">
+            <h2 id="highlights-h" className="font-serif text-5xl">Highlights</h2>
+            <p className="mt-2 font-marker text-2xl text-oxblood">a few I’m proud of</p>
+            <ul className="mt-24 flex flex-wrap justify-center gap-x-8 gap-y-24">
+              {highlights.map((h) => (
+                <li key={h.title} className="relative w-full bg-raised px-6 sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.34rem)] pt-32 pb-8 shadow-[0_16px_30px_-18px_rgb(38_12_15/0.5)]">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={h.photo.src} alt={h.photo.alt} className="absolute -top-16 left-1/2 aspect-square w-44 -translate-x-1/2 border-4 border-raised object-cover shadow-md" />
+                  <h3 className="font-serif text-2xl leading-tight">{h.title}</h3>
+                  <p className="mt-3 leading-relaxed text-fg-2">{h.text}</p>
                 </li>
               ))}
             </ul>
           </div>
         </section>
 
-        {/* ── About ── */}
-        <section id="about" aria-labelledby="about-h" className="on-dark damask relative overflow-hidden bg-oxblood">
-          <Sparkle className="absolute top-16 right-[46%] hidden size-8 text-cream/70 lg:block" />
-          <div className="mx-auto grid max-w-6xl gap-14 px-6 py-24 lg:grid-cols-[1.1fr_1fr] lg:items-center">
-            <div>
-              <ScriptHead id="about-h" script="About" serif="me" tone="light" />
-              <div className="mt-8 grid gap-4 text-lg leading-relaxed text-fg-2">
-                {about.map((p) => <p key={p}>{p}</p>)}
-              </div>
-              <TornNote className="relative mt-10 max-w-md -rotate-1" inner="px-7 py-9">
-                <Tape className="-top-2 left-8 -rotate-6" />
-                <div className="flex items-baseline justify-between border-b border-espresso/40 pb-2">
-                  <p className="font-serif text-2xl uppercase tracking-wide">My info</p>
-                  <p className="font-script text-2xl text-oxblood">abruX</p>
-                </div>
-                <dl className="mt-3 grid grid-cols-2 gap-x-6 gap-y-2 text-sm">
-                  {[
-                    ["based in", site.location],
-                    ["roots", "Argentina · Germany"],
-                    ["speaks", "ES · EN · PT"],
-                    ["plays", "VALORANT · LoL"],
-                    ["team", "St. Clair Saints"],
-                    ["role", "Esports coordinator"],
-                  ].map(([k, v]) => (
-                    <div key={k}>
-                      <dt className="font-serif italic text-oxblood">{k}</dt>
-                      <dd className="font-semibold">{v}</dd>
-                    </div>
-                  ))}
-                </dl>
-              </TornNote>
-            </div>
-            <div className="relative mx-auto grid w-full max-w-md grid-cols-2 items-start gap-5 pb-14">
-              {portraitPhoto && <Print photo={portraitPhoto} caption="hi!" className="-rotate-3" />}
-              {jerseyPhoto && <Print photo={jerseyPhoto} caption="game day" className="mt-14 rotate-3" />}
-              <p aria-hidden="true" className="absolute right-2 -bottom-1 rotate-[-4deg] font-marker text-3xl text-cream">that’s me!</p>
-              <Star className="absolute -top-8 left-[40%] size-14 -rotate-12" />
-              <Sparkle className="absolute bottom-10 left-2 size-7 text-cream/80" />
-            </div>
-          </div>
-        </section>
-
-        {/* ── Numbers ── */}
-        <section aria-labelledby="numbers-h" className="grain relative overflow-hidden">
-          <Star tone="oxblood" className="absolute top-14 right-[38%] hidden size-12 rotate-12 lg:block" />
-          <div className="mx-auto grid max-w-6xl gap-14 px-6 py-24 lg:grid-cols-[1fr_auto] lg:items-center">
-            <div>
-              <ScriptHead id="numbers-h" script="By the" serif="numbers" />
-              <Zigzag className="mt-4 w-24 text-oxblood" />
-              <ul className="mt-12 grid grid-cols-2 border-y border-line lg:grid-cols-4">
-                {stats.map((s, i) => {
-                  const Icon = statIcons[s.icon];
-                  return (
-                    <li key={s.label} className={`px-4 py-6 ${i % 2 ? "border-l border-line" : ""} ${i > 1 ? "border-t border-line lg:border-t-0" : ""} lg:border-l lg:first:border-l-0`}>
-                      <span className="grid size-11 place-items-center rounded-full bg-oxblood text-cream">
-                        <Icon aria-hidden="true" className="size-5" strokeWidth={1.75} />
-                      </span>
-                      <span className="mt-4 block font-display text-5xl leading-none tabular-nums text-espresso">{s.value}</span>
-                      <span className="mt-2 block font-serif text-lg italic leading-tight text-fg-2">{s.label}</span>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-            {headsetPhoto && (
-              <div className="relative justify-self-center">
-                <Phone photo={headsetPhoto} label="on comms" className="rotate-3" />
-                <Star className="absolute -top-6 -left-8 size-16 -rotate-12" />
-                <Sparkle className="absolute -right-6 bottom-24 size-8 text-oxblood" />
-                <p aria-hidden="true" className="absolute -bottom-10 -left-16 -rotate-6 font-marker text-3xl text-oxblood">match day mode</p>
-              </div>
-            )}
-          </div>
-        </section>
-
-        {/* ── Services ── */}
-        <section id="offer" aria-labelledby="offer-h" className="on-dark damask relative overflow-hidden bg-brown">
-          <Star className="absolute top-16 right-[8%] size-16 rotate-12" />
-          <Sparkle className="absolute top-40 right-[16%] size-6 text-cream/70" />
-          <div className="mx-auto max-w-6xl px-6 py-24">
-            <ScriptHead id="offer-h" script="Services" serif="& what I do" tone="light" />
-            <ol className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-              {services.map((s, i) => (
-                <li key={s.title} className="grain relative flex flex-col bg-cream p-6 text-espresso shadow-[0_20px_36px_-20px_rgb(0_0_0/0.8)] ring-1 ring-gold ring-offset-4 ring-offset-brown">
-                  <p className="font-serif text-5xl italic leading-none text-oxblood">{roman[i]}</p>
-                  <h3 className="mt-4 font-display text-2xl uppercase leading-tight">{s.title}</h3>
-                  <ul className="mt-4 grid gap-1.5 text-sm">
-                    {s.items.map((it) => (
-                      <li key={it} className="flex items-baseline gap-2">
-                        <span>{it}</span>
-                        <span aria-hidden="true" className="flex-1 border-b border-dotted border-espresso/40" />
-                      </li>
-                    ))}
-                  </ul>
-                  <p className="mt-4 flex-1 text-sm leading-relaxed text-espresso/75">{s.body}</p>
-                  <a href="#contact" className="mt-5 font-serif text-lg italic text-oxblood underline decoration-1 underline-offset-4">inquire</a>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </section>
-
-        {/* ── Work ── */}
+        {/* 7. Work log */}
         <section id="work" aria-labelledby="work-h" className="grain relative overflow-hidden">
-          <Star className="absolute top-20 right-[10%] size-16 rotate-12" />
-          <Sparkle className="absolute top-40 right-[22%] hidden size-8 text-oxblood sm:block" />
-          <div className="mx-auto max-w-6xl px-6 py-24">
-            <div className="relative inline-block">
-              <ScriptHead id="work-h" script="Working" serif="experience" />
-              <p aria-hidden="true" className="absolute -right-44 bottom-2 hidden rotate-[-5deg] font-marker text-3xl text-oxblood md:block">the good stuff</p>
-              <Arrow className="absolute -right-24 -bottom-12 hidden w-16 rotate-45 text-oxblood md:block" />
-            </div>
-            <div className="mt-16 grid gap-20">
-              {workCategories.map((cat) => {
-                const items = credits.filter((c) => c.category === cat);
-                if (!items.length) return null;
-                return (
-                  <div key={cat}>
-                    <h3 className="flex items-center gap-4">
-                      <span className="bg-brown px-4 py-2 font-sans text-xs font-bold uppercase tracking-[0.22em] text-cream">{cat}</span>
-                      <span aria-hidden="true" className="h-px flex-1 bg-line" />
-                      <span className="font-serif italic text-fg-3">{items.length} {items.length === 1 ? "role" : "roles"}</span>
-                    </h3>
-                    <ol className="mt-10 grid gap-x-10 gap-y-12 lg:grid-cols-2">
-                      {items.map((c, i) => <WorkEntry key={c.title + c.role} c={c} flip={i % 2 === 1} />)}
-                    </ol>
-                  </div>
-                );
-              })}
-              <a href="#contact" className="mx-auto block w-full max-w-sm rotate-2 transition-transform hover:rotate-1">
-                <TornNote inner="py-10 text-center">
-                  <span className="block font-script text-5xl leading-none text-oxblood">your event next?</span>
-                  <span className="mt-4 block text-xs font-bold uppercase tracking-[0.2em]">let’s talk</span>
-                </TornNote>
-              </a>
+          <Star className="absolute top-16 right-[8%] hidden size-12 rotate-12 md:block" />
+          <div className="mx-auto max-w-6xl px-6 py-20">
+            <h2 id="work-h" className="font-display text-5xl uppercase leading-none tracking-wide sm:text-6xl">Work log</h2>
+            <p className="mt-3 text-fg-2">Every role, newest first. Tap Photos to see pictures from the job.</p>
+            <div className="mt-8">
+              <WorkLog credits={credits} categories={workCategories} />
             </div>
           </div>
         </section>
 
-        {/* ── Skills ── */}
-        <section id="skills" aria-labelledby="skills-h" className="on-dark damask relative overflow-hidden bg-espresso">
-          <Sparkle className="absolute top-20 left-[40%] hidden size-8 text-cream/70 lg:block" />
-          <div className="mx-auto grid max-w-6xl gap-12 px-6 py-24 lg:grid-cols-[1fr_1.6fr] lg:items-start">
+        {/* 8. Small heading + three cards: education and skills */}
+        <section id="skills" aria-labelledby="skills-h" className="bg-raised">
+          <div className="mx-auto grid max-w-6xl items-start gap-12 px-6 py-24 lg:grid-cols-[0.9fr_2fr]">
             <div>
-              <ScriptHead id="skills-h" script="Skills" serif="& strengths" tone="light" />
-              <p className="mt-6 max-w-sm text-lg leading-relaxed text-fg-2">What I bring to a team, a broadcast or an event, in my own words.</p>
-              <div className="relative mt-10 w-[min(70vw,18rem)]">
-                <Cutout photo={cutouts.headset} className="w-full -rotate-2" />
-                <p aria-hidden="true" className="absolute -right-6 bottom-6 rotate-[-6deg] bg-oxblood px-3 py-1 font-marker text-2xl text-cream shadow-md">on comms</p>
-                <Star className="absolute -top-4 -right-2 size-12 rotate-12" />
-              </div>
+              <Label className="text-oxblood">Education</Label>
+              <h2 id="skills-h" className="mt-3 font-serif text-4xl leading-tight">{edu.program}</h2>
+              <p className="mt-2 font-serif text-lg italic text-fg-2">{edu.credential}, {edu.school} · {edu.years}, {edu.note}</p>
+              <Seal className="mt-6 size-16 -rotate-6" />
             </div>
-            <div className="overflow-hidden bg-cream text-espresso shadow-[0_26px_44px_-20px_rgb(0_0_0/0.75)] ring-1 ring-gold ring-offset-4 ring-offset-espresso">
-              <div className="flex items-center gap-2 bg-oxblood px-4 py-2.5 text-cream">
-                <span aria-hidden="true" className="size-2.5 rounded-full bg-cream" />
-                <span aria-hidden="true" className="size-2.5 rounded-full bg-cream/60" />
-                <span aria-hidden="true" className="size-2.5 rounded-full bg-cream/30" />
-                <span className="ml-3 font-mono text-sm">#abrux-comms</span>
-              </div>
-              <ul className="grid gap-4 p-4 sm:p-6">
-                <li className="max-w-[80%] rounded-2xl rounded-bl-sm bg-parchment px-4 py-2.5 font-serif text-lg italic">So, what are you actually good at?</li>
-                {skillGroups.map((g) => (
-                  <li key={g.title} className="ml-auto max-w-[92%] rounded-2xl rounded-br-sm bg-oxblood px-4 py-3 text-cream">
-                    <p className="font-display text-lg uppercase tracking-wide">{g.title}</p>
-                    <ul className="mt-2 flex flex-wrap gap-1.5">
-                      {g.items.map((it) => (
-                        <li key={it} className="rounded-full border border-cream/40 px-2.5 py-1 text-sm">{it}</li>
-                      ))}
-                    </ul>
-                  </li>
-                ))}
-                <li className="flex items-center gap-2 text-sm text-espresso/60">
-                  <span aria-hidden="true" className="flex gap-1">
-                    <span className="size-1.5 rounded-full bg-espresso/40" /><span className="size-1.5 rounded-full bg-espresso/40" /><span className="size-1.5 rounded-full bg-espresso/40" />
-                  </span>
-                  abruX is typing
-                </li>
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        {/* ── Education ── */}
-        <section id="education" aria-labelledby="edu-h" className="on-dark damask relative overflow-hidden bg-oxblood">
-          <Star className="absolute top-16 right-[8%] size-14 -rotate-12" />
-          <Sparkle className="absolute bottom-16 left-[6%] size-8 text-cream/70" />
-          <div className="mx-auto grid max-w-6xl gap-12 px-6 py-24 lg:grid-cols-[auto_1fr] lg:items-center">
-            <ScriptHead id="edu-h" script="Education" serif="background" tone="light" />
-            <ol className="grid gap-10">
-              {education.map((e) => (
-                <li key={e.school} className="grain relative max-w-2xl -rotate-1 bg-cream p-3 text-espresso shadow-[0_26px_44px_-20px_rgb(0_0_0/0.75)]">
-                  <div className="border-2 border-gold p-1">
-                    <div className="border border-gold/70 px-6 py-8 text-center sm:px-10">
-                      <span className="relative inline-block px-3"><Label className="text-oxblood">{e.years} · {e.note}</Label><Loop className="absolute -inset-x-1 -inset-y-3 h-[calc(100%+1.5rem)] w-[calc(100%+0.5rem)] text-oxblood/70" /></span>
-                      <h3 className="mt-3 font-serif text-4xl leading-[1.05] sm:text-5xl">{e.program}</h3>
-                      <p className="mt-3 font-script text-3xl text-oxblood">{e.credential}</p>
-                      <p className="mt-1 text-sm font-bold uppercase tracking-[0.16em]">{e.school} · {e.place}</p>
-                      <p className="mx-auto mt-4 max-w-md leading-relaxed text-espresso/75">{e.detail}</p>
-                    </div>
-                  </div>
-                  <Tape className="-top-3 left-10 -rotate-6" />
-                  <Tape className="-top-3 right-10 rotate-6" />
-                  <Seal className="absolute -right-5 -bottom-5 size-20 rotate-12" />
+            <ul className="grid gap-10 sm:grid-cols-3 sm:gap-6">
+              {skillCards.map(({ group, photo }) => (
+                <li key={group.title} className="text-center">
+                  {photo && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={photo.src} alt={photo.alt} className="aspect-[4/3] w-full object-cover" />
+                  )}
+                  <Label className="mt-4 block text-oxblood">{group.title}</Label>
+                  <p className="mt-2 text-sm leading-relaxed text-fg-2">{group.items.join(" · ")}</p>
                 </li>
               ))}
-            </ol>
+            </ul>
           </div>
         </section>
 
-        <section aria-label="More photos" className="relative z-10 -my-8 overflow-hidden py-8">
-          <FilmStrip photos={[...photos, ...eventPhotos.slice(0, 4)].reverse()} reverse className="-mx-4 rotate-1" />
+        {/* 9. CTA */}
+        <section aria-labelledby="cta-h" className="grain relative overflow-hidden">
+          <Star className="absolute top-14 left-[12%] hidden size-14 -rotate-12 md:block" />
+          <Sparkle className="absolute right-[14%] bottom-16 hidden size-8 text-oxblood md:block" />
+          <div className="mx-auto max-w-3xl px-6 py-24 text-center">
+            <p className="font-sans text-sm font-bold text-espresso">Running a team, an event or a broadcast?</p>
+            <h2 id="cta-h" className="mt-2 font-serif text-5xl leading-tight">Let’s work together.</h2>
+            <p className="mx-auto mt-4 max-w-xl leading-relaxed text-fg-2">Or need something translated into Spanish or Portuguese? Tell me what you have in mind.</p>
+            <div className="mt-8 flex flex-wrap justify-center gap-4">
+              <a href="#contact" className={btnSolid}>Send a message</a>
+              {site.links.filter((l) => l.label !== "X").map((l) => (
+                <a key={l.href} href={l.href} rel="me noopener" target="_blank" className={btnLine}>{l.label}</a>
+              ))}
+            </div>
+          </div>
         </section>
 
-        {/* ── Contact ── */}
-        <section id="contact" aria-labelledby="contact-h" className="grain relative overflow-hidden">
-          <Star tone="oxblood" className="absolute top-20 left-[42%] hidden size-12 rotate-12 lg:block" />
-          <div className="mx-auto grid max-w-6xl gap-14 px-6 py-24 lg:grid-cols-[1fr_1.35fr] lg:items-center">
-            <div>
-              <ScriptHead id="contact-h" script="Let’s work" serif="together" />
-              <p className="mt-6 text-lg leading-relaxed text-fg-2">
-                Running a team, an event or a broadcast, or need something translated? Tell me what you have in mind.
-              </p>
-              <ul className="mt-6 flex flex-wrap gap-3">
-                {site.links.map((l) => (
-                  <li key={l.href}>
-                    <a href={l.href} rel="me noopener" target="_blank" className="inline-block border border-espresso px-4 py-1.5 text-xs font-bold uppercase tracking-[0.18em] transition-colors hover:bg-espresso hover:text-cream">
-                      {l.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-              <figure className="relative mt-10 w-[min(64vw,17rem)]">
-                <Cutout photo={cutouts.flag} className="w-full rotate-2" />
-                <figcaption className="absolute -right-24 bottom-10 rotate-[-6deg] font-marker text-3xl leading-none text-oxblood sm:-right-32">from<br />Argentina</figcaption>
-                <Star className="absolute -top-4 -left-4 size-12 -rotate-12" />
-              </figure>
+        {/* 10. Social photo row */}
+        <section aria-label="Photos" className="grain">
+          <div className="mx-auto max-w-6xl px-6 pb-16">
+            <div className="flex items-center gap-4">
+              <a href={ig?.href ?? "#"} rel="me noopener" target="_blank" className="font-marker text-2xl text-oxblood hover:underline">@abruxmo</a>
+              <span aria-hidden="true" className="h-px flex-1 bg-line" />
             </div>
-            {/* Envelope with the form as the letter */}
-            <div className="relative pb-10">
-              <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-40 bg-oxblood [clip-path:polygon(0_0,50%_55%,100%_0,100%_100%,0_100%)] shadow-[0_20px_40px_-20px_rgb(0_0_0/0.6)]" />
-              <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-40 bg-wine" style={{ clipPath: "polygon(0 100%, 50% 45%, 100% 100%)" }} />
-              <div className="relative mx-4 grain bg-parchment p-6 shadow-[0_10px_30px_-12px_rgb(36_21_15/0.5)] sm:mx-8 sm:p-8">
-                <p className="mb-6 font-script text-4xl leading-none text-oxblood">Dear Abril,</p>
-                <ContactForm />
-              </div>
-              <Seal className="absolute right-6 bottom-3 size-16 rotate-12 sm:right-10" />
-              <Star className="absolute -top-6 -right-4 size-14 rotate-12" />
+            <ul className="mt-6 grid grid-cols-3 gap-3 sm:grid-cols-5 sm:gap-5">
+              {socialRow.map((p, i) => (
+                <li key={p.src} className={i > 2 ? "hidden sm:block" : ""}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={p.src} alt={p.alt} className="aspect-square w-full object-cover object-top" />
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        {/* 11. Contact (the layout's signup block) */}
+        <section id="contact" aria-labelledby="contact-h" className="grain bg-parchment">
+          <div className="mx-auto max-w-3xl px-6 py-20">
+            <div className="text-center">
+              <p className="text-sm font-bold text-espresso">Say hi</p>
+              <h2 id="contact-h" className="mt-1 font-serif text-4xl">Send me a message</h2>
+              <p className="mt-3 text-fg-2">Tell me about your team, event or project.</p>
+            </div>
+            <TornNote className="relative mt-10" inner="px-6 py-10 sm:px-10">
+              <ContactForm />
+            </TornNote>
+          </div>
+        </section>
+        {/* 12. FAQ (last) */}
+        <section id="faq" aria-labelledby="faq-h" className="on-dark damask bg-oxblood">
+          <div className="mx-auto max-w-5xl px-6 py-20">
+            <h2 id="faq-h" className="text-center font-serif text-5xl">FAQ</h2>
+            <div className="mt-12 grid gap-x-12 sm:grid-cols-2">
+              {faqs.map((f) => (
+                <details key={f.q} className="group border-b border-line">
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 text-lg [&::-webkit-details-marker]:hidden">
+                    {f.q}
+                    <Plus aria-hidden="true" className="size-5 shrink-0 transition-transform group-open:rotate-45" strokeWidth={1.5} />
+                  </summary>
+                  <p className="pb-5 leading-relaxed text-fg-2">{f.a}</p>
+                </details>
+              ))}
             </div>
           </div>
         </section>
       </main>
 
       <footer className="on-dark bg-espresso">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-6 py-8 text-sm text-fg-3">
-          <p>© {new Date().getFullYear()} {site.name}</p>
-          <p className="flex items-center gap-2 font-script text-2xl text-cream"><Sparkle className="size-4 text-gold" />thank you for visiting<Sparkle className="size-4 text-gold" /></p>
-          <a href="/privacy" className="transition-colors hover:text-cream">Privacy</a>
+        <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-6 py-8 text-sm text-fg-3">
+          <ul className="flex gap-4">
+            {site.links.map((l) => (
+              <li key={l.href}><a href={l.href} rel="me noopener" target="_blank" aria-label={l.label} className="font-bold text-cream hover:text-gold">{socialShort[l.label] ?? l.label}</a></li>
+            ))}
+          </ul>
+          <p>© {new Date().getFullYear()} {site.name} · <a href="/privacy" className="hover:text-cream">Privacy</a></p>
         </div>
       </footer>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />

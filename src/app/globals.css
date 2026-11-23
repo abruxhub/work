@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* Brown and cream, a touch of gilt. ("oxblood" and "wine" are the two deep browns.) */
+/* Dark red and cream, red gilt. */
 @theme {
   --font-sans: "Archivo Variable", ui-sans-serif, system-ui, sans-serif;
   --font-serif: "Instrument Serif", ui-serif, Georgia, serif;
@@ -9,31 +9,31 @@
   --font-marker: "Caveat Brush", "Marker Felt", cursive;
   --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
 
-  --color-oxblood: #4a2c1c;
-  --color-wine: #7a5236;
-  --color-brown: #5b3b28;
-  --color-espresso: #24150f;
-  --color-cream: #efe6d4;
-  --color-parchment: #e3d6bd;
-  --color-gold: #b08d57;
+  --color-oxblood: #4b1219;
+  --color-wine: #6b1d27;
+  --color-brown: #5a161d;
+  --color-espresso: #260c0f;
+  --color-cream: #f4ebe1;
+  --color-parchment: #f2e3dd;
+  --color-gold: #c4505a;
 
   /* Text roles for light (cream) surfaces; .on-dark flips them. */
-  --color-bg: #efe6d4;
-  --color-fg: #24150f;
-  --color-fg-2: #4f3b2d;
-  --color-fg-3: #76604d;
-  --color-line: rgb(36 21 15 / 0.28);
-  --color-raised: #f6efe2;
-  --color-ink: #24150f;
-  --color-accent: #4a2c1c;
+  --color-bg: #f4ebe1;
+  --color-fg: #260c0f;
+  --color-fg-2: #4a2a2c;
+  --color-fg-3: #755a5c;
+  --color-line: rgb(38 12 15 / 0.28);
+  --color-raised: #faf5ef;
+  --color-ink: #260c0f;
+  --color-accent: #4b1219;
 }
 
 .on-dark {
-  --color-fg: #efe6d4;
-  --color-fg-2: #dccdb3;
-  --color-fg-3: #bba98c;
-  --color-line: rgb(239 230 212 / 0.35);
-  --color-accent: #efe6d4;
+  --color-fg: #f4ebe1;
+  --color-fg-2: #ecd6d3;
+  --color-fg-3: #cfa9a9;
+  --color-line: rgb(244 235 225 / 0.35);
+  --color-accent: #f4ebe1;
   color: var(--color-fg);
 }
 
@@ -56,7 +56,7 @@ body {
 
 /* Paper grain for cream pages. */
 .grain {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .2 0 0 0 0 .12 0 0 0 0 .08 0 0 0 .08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .3 0 0 0 0 .03 0 0 0 0 .06 0 0 0 .08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 /* Torn top and bottom edges for paper notes. */
@@ -68,8 +68,8 @@ body {
 .gilt {
   border: 7px solid transparent;
   background: linear-gradient(var(--color-espresso), var(--color-espresso)) padding-box,
-    linear-gradient(135deg, #e6cf97, #9a7438 30%, #f1dca6 50%, #8a6530 72%, #d9bd80) border-box;
-  box-shadow: 0 0 0 2px #5e4422, 0 18px 36px -16px rgb(0 0 0 / 0.6);
+    linear-gradient(135deg, #c4505a, #6b1d27 30%, #e58a90 50%, #4b1219 72%, #b83a44) border-box;
+  box-shadow: 0 0 0 2px #260c0f, 0 18px 36px -16px rgb(0 0 0 / 0.6);
 }
 
 :focus-visible {
